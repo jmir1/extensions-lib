@@ -45,6 +45,11 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     val headers: Headers = throw Exception("Stub!")
 
     /**
+     * Headers used for playing the video file
+     */
+    val videoHeaders: Headers = throw Exception("Stub!")
+
+    /**
      * Default network client for doing requests.
      */
     open val client: OkHttpClient = throw Exception("Stub!")
@@ -53,6 +58,13 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * Headers builder for requests. Implementations can override this method for custom headers.
      */
     protected open fun headersBuilder(): Headers.Builder {
+        throw Exception("Stub!")
+    }
+
+    /**
+     * Headers builder for video requests. Implementations can override this method for custom headers.
+     */
+    protected open fun videoHeadersBuilder(): Headers.Builder {
         throw Exception("Stub!")
     }
 
@@ -220,10 +232,18 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
+     * Sorts the video list
+     * Override this according to the user's preference
+     */
+    protected open fun List<Video>.sort(): List<Video> {
+        throw Exception("Stub!")
+    }
+
+    /**
      * Returns the request for getting the url to the source image. Override only if it's needed to
      * override the url, send different headers or request method like POST.
      *
-     * @param page the chapter whose page list has to be fetched
+     * @param video the chapter whose page list has to be fetched
      */
     protected open fun videoUrlRequest(video: Video): Request {
         throw Exception("Stub!")
