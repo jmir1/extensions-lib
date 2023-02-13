@@ -41,13 +41,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     override val id: Long = throw Exception("Stub!")
 
     /**
-     * Headers used for requests. Result of [headersBuilder()]
+     * Headers used for requests. Result of [headersBuilder]
      */
     val headers: Headers = throw Exception("Stub!")
 
     /**
      * Default network client for doing requests. Implementations can override this property
      * for custom [OkHttpClient] instances.
+     *
      * Example usage:
      * ```
      * override val client: OkHttpClient = 

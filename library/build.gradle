@@ -1,4 +1,5 @@
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.DokkaConfiguration.Visibility
 
 plugins {
     id 'com.android.library'
@@ -43,6 +44,17 @@ tasks.withType(DokkaTask.class) {
             moduleVersion.set(android.defaultConfig.versionName)
             outputDirectory.set(file("build/docs/"))
             offlineMode.set(true)
+            includes.from("Module.md")
+
+            perPackageOption {
+                matchingRegex.set("android.*")
+                suppress.set(true)
+            }
+
+            documentedVisibilities.set([
+                Visibility.PUBLIC,
+                Visibility.PROTECTED
+            ])
         }
     }
 }
