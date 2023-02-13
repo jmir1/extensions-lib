@@ -3,8 +3,14 @@ package eu.kanade.tachiyomi.animesource.model
 import android.net.Uri
 import okhttp3.Headers
 
+/**
+ * A sub/dub track.
+ */
 data class Track(val url: String, val lang: String)
 
+/**
+ * The instance that contains the data needed to watch a video.
+ */
 data class Video(val url: String,
                  val quality: String,
                  var videoUrl: String?,

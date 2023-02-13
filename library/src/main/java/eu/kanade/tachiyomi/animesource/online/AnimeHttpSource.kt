@@ -34,17 +34,29 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Id of the source. By default it uses a generated id using the first 16 characters (64 bits)
      * of the MD5 of the string: sourcename/language/versionId
+     * Implementations MUST ONLY override this property to use a hardcoded ID when the source
+     * name or language were changed.
      * Note the generated id sets the sign bit to 0.
      */
     override val id: Long = throw Exception("Stub!")
 
     /**
-     * Headers used for requests.
+     * Headers used for requests. Result of [headersBuilder()]
      */
     val headers: Headers = throw Exception("Stub!")
 
     /**
-     * Default network client for doing requests.
+     * Default network client for doing requests. Implementations can override this property
+     * for custom [OkHttpClient] instances.
+     * Example usage:
+     * ```
+     * override val client: OkHttpClient = 
+     *     network.client
+     *         .newBuilder()
+     *         .addInterceptor(RecaptchaDestroyer())
+     *         .dns(Dns.SYSTEM)
+     *         .build()
+     * ```
      */
     open val client: OkHttpClient = throw Exception("Stub!")
 
@@ -88,7 +100,8 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
 
     /**
      * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method.
+     * override this method, but can be useful to change the usual workflow and use functions with
+     * different signatures from [searchAnimeRequest] or [searchAnimeParse].
      *
      * @param page the page number to retrieve.
      * @param query the search query.
@@ -99,7 +112,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns the request for the search anime given the page.
+     * Returns the request for the search anime given the page and filters.
      *
      * @param page the page number to retrieve.
      * @param query the search query.
@@ -174,6 +187,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         throw Exception("Stub!")
     }
 
+    /**
+     * Returns an observable with the video list for an episode. Normally it's not needed to
+     * override this method.
+     *
+     * @param episode the episode to look for videos.
+     */
     override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
         throw Exception("Stub!")
     }
@@ -271,7 +290,8 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
 
 
     /**
-     * Returns the url of the provided anime
+     * Returns the url of the provided anime. Useful to fix "open in webview" 
+     * without overriding [fetchAnimeDetails].
      *
      * @since extensions-lib 14
      * @param anime the anime

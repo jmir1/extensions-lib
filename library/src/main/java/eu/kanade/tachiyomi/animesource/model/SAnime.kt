@@ -12,14 +12,27 @@ interface SAnime {
 
     var description: String?
 
+    /**
+     * A string containing list of all genres separated with `", "`
+     */
     var genre: String?
 
+    /**
+     * An "enum" value. Refer to the values in the [SAnime companion object](https://github.com/jmir1/extensions-lib/blob/a2afb04d892e94d21cd4ade7094dca27f4c0c180/library/src/main/java/eu/kanade/tachiyomi/animesource/model/SAnime.kt#L25).
+     */
     var status: Int
 
     var thumbnail_url: String?
 
+    /**
+     * Useful to exclude animes/movies that will always only have the same episode list
+     * from the global updates.
+     */
     var update_strategy: UpdateStrategy
 
+    /**
+     * Tells the app if it should call [fetchAnimeDetails].
+     */
     var initialized: Boolean
 
     companion object {

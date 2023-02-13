@@ -17,7 +17,6 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
 
     /**
      * Parses the response from the site and returns a [AnimesPage] object.
-     *
      * @param response the response from the site.
      */
     override fun popularAnimeParse(response: Response): AnimesPage {
@@ -137,7 +136,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
     protected abstract fun episodeFromElement(element: Element): SEpisode
 
     /**
-     * Parses the response from the site and returns a list of episodes.
+     * Parses the response from the site and returns a list of videos.
      *
      * @param response the response from the site.
      */
@@ -146,14 +145,14 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
     }
 
     /**
-     * Returns the Jsoup selector that returns a list of [Element] corresponding to each episode.
+     * Returns the Jsoup selector that returns a list of [Element] corresponding to each video.
      */
     protected abstract fun videoListSelector(): String
 
     /**
-     * Returns a episode from the given element.
+     * Returns a video from the given element.
      *
-     * @param element an element obtained from [episodeListSelector].
+     * @param element an element obtained from [videoListSelector].
      */
     protected abstract fun videoFromElement(element: Element): Video
 
