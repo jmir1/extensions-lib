@@ -49,7 +49,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * Default network client for doing requests. Implementations can override this property
      * for custom [OkHttpClient] instances.
      *
-     * Example usage:
+     * **Usage example:**
      * ```
      * override val client: OkHttpClient = 
      *     network.client
@@ -239,8 +239,18 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Sorts the video list
-     * Override this according to the user's preference
+     * Sorts the video list.
+     * Override this according to the user's preference.
+     *
+     * **Usage example:**
+     * ```
+     * override fun List<Video>.sort(): List<Video> {
+     *     val quality = preferences.getString(PREF_QUALITY_KEY, "720p")!!
+     *     return sortedWith(
+     *         compareBy { it.quality.contains(quality) }
+     *     ).reversed()
+     * }
+     * ```
      */
     protected open fun List<Video>.sort(): List<Video> {
         throw Exception("Stub!")
