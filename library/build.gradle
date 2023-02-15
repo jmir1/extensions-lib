@@ -48,7 +48,7 @@ tasks.withType(DokkaTask.class) {
             includes.from("Module.md")
 
             perPackageOption {
-                matchingRegex.set("android.*")
+                matchingRegex.set("android.content")
                 suppress.set(true)
             }
 
