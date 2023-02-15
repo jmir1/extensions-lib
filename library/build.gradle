@@ -43,7 +43,8 @@ tasks.withType(DokkaTask.class) {
             moduleName.set("extensions-lib")
             moduleVersion.set(android.defaultConfig.versionName)
             outputDirectory.set(file("build/docs/"))
-            offlineMode.set(true)
+            // Speedup doc generation
+            // offlineMode.set(true)
             includes.from("Module.md")
 
             perPackageOption {
@@ -55,6 +56,17 @@ tasks.withType(DokkaTask.class) {
                 Visibility.PUBLIC,
                 Visibility.PROTECTED
             ])
+
+            externalDocumentationLink {
+                url.set(new URL("https://square.github.io/okhttp/4.x/"))
+                // https://github.com/square/okhttp/issues/7338
+                packageListUrl.set(new URL("https://colinwhite.me/okhttp3-package-list"))
+            }
+
+            externalDocumentationLink {
+                url.set(new URL("https://jsoup.org/apidocs/"))
+                packageListUrl.set(new URL("https://jsoup.org/apidocs/element-list"))
+            }
         }
     }
 }
