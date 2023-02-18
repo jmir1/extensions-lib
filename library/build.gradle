@@ -67,6 +67,10 @@ tasks.withType(DokkaTask.class) {
                 url.set(new URL("https://jsoup.org/apidocs/"))
                 packageListUrl.set(new URL("https://jsoup.org/apidocs/element-list"))
             }
+
+            externalDocumentationLink {
+                url.set(new URL("https://reactivex.io/RxJava/1.x/javadoc/"))
+            }
         }
     }
 }
