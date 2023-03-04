@@ -53,7 +53,7 @@ sealed class AnimeFilter<T>(val name: String, var state: T) {
     }
 
     /**
-     * A group of filters (preferentially of the same type).
+     * A group of filters.
      * Usually used for multiple related [CheckBox]/[TriState] instances, like in a genres filter
      *
      * @param name The filter group name

@@ -11,6 +11,7 @@ import rx.Observable
 
 /**
  * A simple implementation for sources from a website.
+ * Usually requires the usage of json serialization or similar techniques.
  */
 @Suppress("unused", "unused_parameter")
 abstract class AnimeHttpSource : AnimeCatalogueSource {
@@ -63,6 +64,16 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
 
     /**
      * Headers builder for requests. Implementations can override this method for custom headers.
+     *
+     * **Usage example:**
+     * ```
+     * // Adds headers to the default [Headers.Builder] instance, retaining
+     * // headers like the default(or user-made) User-Agent.
+     * override fun headersBuilder() = super.headersBuilder().add("Referer", baseUrl)
+     *
+     * // Creates a new, empty [Headers.Builder] instance and adds a single header.
+     * override fun headersBuilder() = Headers.Builder().add("Referer", baseUrl)
+     * ```
      */
     protected open fun headersBuilder(): Headers.Builder {
         throw Exception("Stub!")
