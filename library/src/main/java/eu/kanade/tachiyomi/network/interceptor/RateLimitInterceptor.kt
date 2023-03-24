@@ -7,9 +7,16 @@ import java.util.concurrent.TimeUnit
  * An OkHttp interceptor that handles rate limiting.
  *
  * Examples:
- *
- * permits = 5,  period = 1, unit = seconds  =>  5 requests per second
- * permits = 10, period = 2, unit = minutes  =>  10 requests per 2 minutes
+ * ```
+ * override val client = network.client.newBuilder()
+ *     // 5 requests per second
+ *     .rateLimit(permits = 5, period = 1, unit = TimeUnit.SECONDS)
+ *     // 15 requests per minute
+ *     .rateLimit(permits = 15, unit = TimeUnit.MINUTES)
+ *     // 10 requests per 2 minutes
+ *     .rateLimit(permits = 10, period = 2, unit = TimeUnit.MINUTES)
+ *     .build()
+ * ```
  *
  * @since extension-lib 1.3
  *

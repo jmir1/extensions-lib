@@ -8,9 +8,16 @@ import java.util.concurrent.TimeUnit
  * An OkHttp interceptor that handles given url host's rate limiting.
  *
  * Examples:
- *
- * httpUrl = "api.manga.com".toHttpUrlOrNull(), permits = 5, period = 1, unit = seconds  =>  5 requests per second to api.manga.com
- * httpUrl = "imagecdn.manga.com".toHttpUrlOrNull(), permits = 10, period = 2, unit = minutes  =>  10 requests per 2 minutes to imagecdn.manga.com
+ * ```
+ * override val client = network.client.newBuilder()
+ *     // 5 requests per second to api.videos.com
+ *     .rateLimitHost(httpUrl = "api.videos.com".toHttpUrl(), permits = 5, period = 1, unit = TimeUnit.SECONDS)
+ *     // 20 requests per second to previews.xyz
+ *     .rateLimitHost(httpUrl = "previews.xyz".toHttpUrl(), permits = 20)
+ *     // 10 requests per 2 minutes to cdn.thumbnails.org
+ *     .rateLimitHost("cdn.thumbnails.org".toHttpUrl(), 10, 2, TimeUnit.MINUTES)
+ *     .build()
+ * ```
  *
  * @since extension-lib 1.3
  *
