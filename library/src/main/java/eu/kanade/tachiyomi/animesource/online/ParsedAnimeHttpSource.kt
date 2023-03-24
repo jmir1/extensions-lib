@@ -161,7 +161,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
     }
 
     /**
-     * Returns the absolute url to the source image from the document.
+     * Returns the absolute url to the video url from the document.
      *
      * @param document the parsed document.
      */

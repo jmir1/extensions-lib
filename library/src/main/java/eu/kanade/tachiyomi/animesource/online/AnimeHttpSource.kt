@@ -268,10 +268,10 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns the request for getting the url to the source image. Override only if it's needed to
+     * Returns the request for getting the url to the source video. Override only if it's needed to
      * override the url, send different headers or request method like POST.
      *
-     * @param video the chapter whose page list has to be fetched
+     * @param video the video whose its links have to be fetched.
      */
     protected open fun videoUrlRequest(video: Video): Request {
         throw Exception("Stub!")
