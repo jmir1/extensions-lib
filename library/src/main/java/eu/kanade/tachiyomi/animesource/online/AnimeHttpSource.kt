@@ -52,6 +52,8 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * **Usage example:**
      * ```
+     * import okhttp3.Dns
+     * .....
      * override val client: OkHttpClient = 
      *     network.client
      *         .newBuilder()
@@ -65,12 +67,13 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Headers builder for requests. Implementations can override this method for custom headers.
      *
-     * **Usage example:**
+     * **Usage examples:**
      * ```
      * // Adds headers to the default [Headers.Builder] instance, retaining
      * // headers like the default(or user-made) User-Agent.
      * override fun headersBuilder() = super.headersBuilder().add("Referer", baseUrl)
-     *
+     * ```
+     * ```
      * // Creates a new, empty [Headers.Builder] instance and adds a single header.
      * override fun headersBuilder() = Headers.Builder().add("Referer", baseUrl)
      * ```
@@ -253,13 +256,27 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * Sorts the video list.
      * Override this according to the user's preference.
      *
-     * **Usage example:**
+     * **Usage examples:**
      * ```
+     * // Sorts by quality
      * override fun List<Video>.sort(): List<Video> {
-     *     val quality = preferences.getString(PREF_QUALITY_KEY, "720p")!!
+     *     val quality = preferences.getString(PREF_QUALITY_KEY, PREF_QUALITY_DEFAULT)!!
      *     return sortedWith(
      *         compareBy { it.quality.contains(quality) }
      *     ).reversed()
+     * }
+     * ```
+     * ```
+     * // Sorts by quality and hardsub language
+     * override fun List<Video>.sort(): List<Video> {
+     *    val quality = preferences.getString(PREF_QUALITY_KEY, PREF_QUALITY_DEFAULT)!!
+     *    val lang = preferences.getString(PREF_LANG_KEY, PREF_LANG_DEFAULT)!!
+     *    return sortedWith(
+     *        compareBy(
+     *            { it.quality.contains(quality) },
+     *            { it.quality.contains(lang) },
+     *        ),
+     *    ).reversed()
      * }
      * ```
      */

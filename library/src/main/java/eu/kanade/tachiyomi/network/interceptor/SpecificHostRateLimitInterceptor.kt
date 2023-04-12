@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 /**
  * An OkHttp interceptor that handles given url host's rate limiting.
  *
- * Examples:
+ * **Examples:**
  * ```
  * override val client = network.client.newBuilder()
  *     // 5 requests per second to api.videos.com

@@ -47,7 +47,7 @@ interface ConfigurableAnimeSource {
      *         // Another Array<String>. Can be different from the property above, as long it have the same size
      *         // and equivalent values per index.
      *         entryValues = PREF_QUALITY_VALUES 
-     *         setDefaultValue(PREF_QUALITY_VALUES.last())
+     *         setDefaultValue(PREF_QUALITY_DEFAULT)
      *         summary = "%s"
      *         setOnPreferenceChangeListener { _, newValue ->
      *             val selected = newValue as String
