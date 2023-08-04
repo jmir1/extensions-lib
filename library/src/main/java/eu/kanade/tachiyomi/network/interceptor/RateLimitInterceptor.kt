@@ -2,31 +2,49 @@ package eu.kanade.tachiyomi.network.interceptor
 
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * An OkHttp interceptor that handles rate limiting.
  *
- * **Examples:**
- * ```
- * override val client = network.client.newBuilder()
- *     // 5 requests per second
- *     .rateLimit(permits = 5, period = 1, unit = TimeUnit.SECONDS)
- *     // 15 requests per minute
- *     .rateLimit(permits = 15, unit = TimeUnit.MINUTES)
- *     // 10 requests per 2 minutes
- *     .rateLimit(permits = 10, period = 2, unit = TimeUnit.MINUTES)
- *     .build()
- * ```
+ * This uses `java.time` APIs and is the legacy method, kept
+ * for compatibility reasons with existing extensions.
  *
- * @since extension-lib 1.3
+ * Examples:
  *
- * @param permits {Int}   Number of requests allowed within a period of units.
- * @param period {Long}   The limiting duration. Defaults to 1.
- * @param unit {TimeUnit} The unit of time for the period. Defaults to seconds.
+ * permits = 5,  period = 1, unit = seconds  =>  5 requests per second
+ * permits = 10, period = 2, unit = minutes  =>  10 requests per 2 minutes
+ *
+ * @since extension-lib 13
+ *
+ * @param permits [Int]   Number of requests allowed within a period of units.
+ * @param period [Long]   The limiting duration. Defaults to 1.
+ * @param unit [TimeUnit] The unit of time for the period. Defaults to seconds.
  */
 @Suppress("unused_parameter")
+@Deprecated("Use the version with kotlin.time APIs instead.")
 fun OkHttpClient.Builder.rateLimit(
     permits: Int,
     period: Long = 1,
     unit: TimeUnit = TimeUnit.SECONDS,
+): OkHttpClient.Builder = throw Exception("Stub!")
+
+/**
+ * An OkHttp interceptor that handles rate limiting.
+ *
+ * Examples:
+ *
+ * permits = 5,  period = 1.seconds  =>  5 requests per second
+ * permits = 10, period = 2.minutes  =>  10 requests per 2 minutes
+ *
+ * @since extension-lib 14
+ *
+ * @param permits [Int]     Number of requests allowed within a period of units.
+ * @param period [Duration] The limiting duration. Defaults to 1.seconds.
+ */
+@Suppress("unused_parameter")
+fun OkHttpClient.Builder.rateLimit(
+    permits: Int,
+    period: Duration = 1.seconds
 ): OkHttpClient.Builder = throw Exception("Stub!")
