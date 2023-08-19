@@ -21,11 +21,12 @@ android {
 }
 
 dependencies {
-    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.11"
-    implementation "io.reactivex:rxjava:1.3.8"
-    implementation "io.reactivex:rxandroid:1.2.1"
-    implementation "org.jsoup:jsoup:1.15.3"
-    implementation "com.github.inorichi.injekt:injekt-core:65b0440"
+    compileOnly("com.squareup.okhttp3:okhttp:5.0.0-alpha.11")
+    compileOnly("io.reactivex:rxjava:1.3.8")
+    compileOnly("io.reactivex:rxandroid:1.2.1")
+    compileOnly("org.jsoup:jsoup:1.15.3")
+    compileOnly("com.github.inorichi.injekt:injekt-core:65b0440")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
 }
 
 task androidSourcesJar(type: Jar) {
