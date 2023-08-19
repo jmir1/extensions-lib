@@ -27,6 +27,9 @@ dependencies {
     compileOnly("org.jsoup:jsoup:1.15.3")
     compileOnly("com.github.inorichi.injekt:injekt-core:65b0440")
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    def json = "1.5.1"
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:$json")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json-okio:$json")
 }
 
 task androidSourcesJar(type: Jar) {
