@@ -1,11 +1,11 @@
-The extensions library used in Tachiyomi.
+The extensions library used in Aniyomi.
 
 ```
 ext {
-    libVersion = '13'
+    libVersion = '14'
 }
 
 dependencies {
-    compileOnly "com.github.tachiyomiorg:extensions-lib:$libVersion"
+    compileOnly "com.github.aniyomiorg:extensions-lib:$libVersion"
 }
 ```
