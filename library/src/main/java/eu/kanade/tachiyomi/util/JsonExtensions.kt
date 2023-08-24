@@ -15,10 +15,13 @@ inline fun <reified T> Response.parseAs(transform: (String) -> String): T {
 }
 
 @ExperimentalSerializationApi
-inline fun <reified T> Response.parseAs(): T {
-    return use { res ->
-        res.body.source().use {
-            Injekt.get<Json>().decodeFromBufferedSource(serializer(), it)
-        }
+inline fun <reified T> Response.parseAs(): T = use { res ->
+    res.body.source().use {
+        Injekt.get<Json>().decodeFromBufferedSource(serializer(), it)
     }
 }
+
+inline fun <reified T> String.parseAs(transform: (String) -> String): T =
+    Injekt.get<Json>().decodeFromString(transform(this))
+
+inline fun <reified T> String.parseAs(): T = Injekt.get<Json>().decodeFromString(this)
