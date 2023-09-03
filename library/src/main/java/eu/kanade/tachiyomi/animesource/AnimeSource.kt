@@ -21,23 +21,48 @@ interface AnimeSource {
     val name: String
 
     /**
-     * Returns an observable with the updated details for a anime.
+     * Get the updated details for a anime.
      *
+     * @since extensions-lib 14
      * @param anime the anime to update.
+     * @return the updated anime.
      */
+    suspend fun getAnimeDetails(anime: SAnime): SAnime
+
+    /**
+     * Get all the available episodes for a anime.
+     *
+     * @since extensions-lib 14
+     * @param anime the anime to update.
+     * @return the episodes for the anime.
+     */
+    suspend fun getEpisodeList(anime: SAnime): List<SEpisode>
+
+    /**
+     * Get the list of videos a episode has.
+     *
+     * @since extensions-lib 14
+     * @param episode the episode.
+     * @return the videos for the episode.
+     */
+    @Suppress("DEPRECATION")
+    suspend fun getVideoList(episode: SEpisode): List<Video>
+
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getAnimeDetails"),
+    )
     fun fetchAnimeDetails(anime: SAnime): Observable<SAnime>
 
-    /**
-     * Returns an observable with all the available episodes for a anime.
-     *
-     * @param anime the anime to update.
-     */
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getEpisodeList"),
+    )
     fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>>
 
-    /**
-     * Returns an observable with a list of video for the episode of an anime.
-     *
-     * @param episode the anime to update.
-     */
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getVideoList"),
+    )
     fun fetchVideoList(episode: SEpisode): Observable<List<Video>>
 }
