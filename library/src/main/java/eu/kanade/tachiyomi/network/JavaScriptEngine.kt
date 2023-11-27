@@ -5,6 +5,7 @@ import android.content.Context
 /**
  * Util for evaluating JavaScript in sources.
  */
+@Suppress("unused_parameter")
 class JavaScriptEngine(context: Context) {
 
     /**

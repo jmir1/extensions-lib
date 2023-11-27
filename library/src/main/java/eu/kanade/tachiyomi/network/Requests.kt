@@ -1,3 +1,5 @@
+@file:Suppress("unused_parameter")
+
 package eu.kanade.tachiyomi.network
 
 import okhttp3.CacheControl
