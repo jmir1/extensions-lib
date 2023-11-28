@@ -28,7 +28,7 @@ interface SAnime {
      * Useful to exclude animes/movies that will always only have the same episode list
      * from the global updates.
      */
-    var update_strategy: UpdateStrategy
+    var update_strategy: AnimeUpdateStrategy
 
     /**
      * Tells the app if it should call [fetchAnimeDetails].

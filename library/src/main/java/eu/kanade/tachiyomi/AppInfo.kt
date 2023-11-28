@@ -9,7 +9,7 @@ object AppInfo {
      * Version code of the host application. May be useful for sharing as User-Agent information.
      * Note that this value differs between forks so logic should not rely on it.
      *
-     * @since extension-lib 1.3
+     * @since extension-lib 13
      */
     fun getVersionCode(): Int = throw Exception("Stub!")
 
@@ -17,7 +17,7 @@ object AppInfo {
      * Version name of the host application. May be useful for sharing as User-Agent information.
      * Note that this value differs between forks so logic should not rely on it.
      *
-     * @since extension-lib 1.3
+     * @since extension-lib 13
      */
     fun getVersionName(): String = throw Exception("Stub!")
 }
