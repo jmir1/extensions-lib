@@ -95,6 +95,10 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param page the page number to retrieve.
      */
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getPopularAnime"),
+    )
     override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
         throw Exception("Stub!")
     }
@@ -122,6 +126,10 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param query the search query.
      * @param filters the list of filters to apply.
      */
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getSearchAnime"),
+    )
     override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
         throw Exception("Stub!")
     }
@@ -147,6 +155,10 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param page the page number to retrieve.
      */
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getLatestUpdates"),
+    )
     override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
         throw Exception("Stub!")
     }
@@ -166,11 +178,17 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     protected abstract fun latestUpdatesParse(response: Response): AnimesPage
 
     /**
-     * Returns an observable with the updated details for a anime. Normally it's not needed to
-     * override this method.
+     * Get the updated details for a anime.
+     * Normally it's not needed to override this method.
      *
      * @param anime the anime to be updated.
+     * @return the updated anime.
      */
+    override suspend fun getAnimeDetails(anime: SAnime): SAnime {
+        throw Exception("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
     override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
         throw Exception("Stub!")
     }
@@ -193,21 +211,34 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     protected abstract fun animeDetailsParse(response: Response): SAnime
 
     /**
-     * Returns an observable with the updated episode list for a anime. Normally it's not needed to
-     * override this method.
+     * Get all the available episodes for an anime.
+     * Normally it's not needed to override this method.
      *
-     * @param anime the anime to look for episodes.
+     * @param anime the anime to update.
+     * @return the chapters for the manga.
+     * @throws LicensedEntryItemsException if a anime is licensed and therefore no episodes are available.
      */
+    override suspend fun getEpisodeList(anime: SAnime): List<SEpisode> {
+        throw Exception("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
     override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
         throw Exception("Stub!")
     }
 
     /**
-     * Returns an observable with the video list for an episode. Normally it's not needed to
-     * override this method.
+     * Get the list of videos a episode has. Videos should be returned
+     * in the expected order; the index is ignored.
      *
-     * @param episode the episode to look for videos.
+     * @param episode the episode.
+     * @return the videos for the episode.
      */
+    override suspend fun getVideoList(episode: SEpisode): List<Video> {
+        throw Exception("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
     override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
         throw Exception("Stub!")
     }
@@ -330,7 +361,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
 
     /**
      * Returns the url of the provided anime. Useful to fix "open in webview" 
-     * without overriding [fetchAnimeDetails].
+     * without overriding [getAnimeDetails].
      *
      * @since extensions-lib 14
      * @param anime the anime
@@ -341,7 +372,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns the url of the provided episode
+     * Returns the url of the provided episode.
      *
      * @since extensions-lib 14
      * @param episode the episode
