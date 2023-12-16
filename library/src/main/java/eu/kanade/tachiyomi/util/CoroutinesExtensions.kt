@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
  *
  * @since extensions-lib 14
  */
-suspend inline fun <A, B> Iterable<A>.parallelMap(crossinline f: suspend (A) -> B): List<B> =
+inline suspend fun <A, B> Iterable<A>.parallelMap(crossinline f: suspend (A) -> B): List<B> =
     withContext(Dispatchers.IO) {
         map { async { f(it) } }.awaitAll()
     }
@@ -20,7 +20,7 @@ suspend inline fun <A, B> Iterable<A>.parallelMap(crossinline f: suspend (A) -> 
  *
  * @since extensions-lib 14
  */
-suspend inline fun <A, B> Iterable<A>.parallelMapNotNull(crossinline f: suspend (A) -> B?): List<B> =
+inline suspend fun <A, B> Iterable<A>.parallelMapNotNull(crossinline f: suspend (A) -> B?): List<B> =
     withContext(Dispatchers.IO) {
         map { async { f(it) } }.awaitAll().filterNotNull()
     }
@@ -30,7 +30,7 @@ suspend inline fun <A, B> Iterable<A>.parallelMapNotNull(crossinline f: suspend 
  *
  * @since extensions-lib 14
  */
-suspend inline fun <A, B> Iterable<A>.parallelFlatMap(crossinline f: suspend (A) -> Iterable<B>): List<B> =
+inline suspend fun <A, B> Iterable<A>.parallelFlatMap(crossinline f: suspend (A) -> Iterable<B>): List<B> =
     withContext(Dispatchers.IO) {
         map { async { f(it) } }.awaitAll().flatten()
     }
@@ -41,7 +41,7 @@ suspend inline fun <A, B> Iterable<A>.parallelFlatMap(crossinline f: suspend (A)
  *
  * @since extensions-lib 14
  */
-suspend inline fun <A, B> Iterable<A>.parallelCatchingFlatMap(crossinline f: suspend (A) -> Iterable<B>): List<B> =
+inline suspend fun <A, B> Iterable<A>.parallelCatchingFlatMap(crossinline f: suspend (A) -> Iterable<B>): List<B> =
     withContext(Dispatchers.IO) {
         map {
             async {
