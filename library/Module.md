@@ -28,3 +28,5 @@ Useful methods for creating http requests and manipulate responses.
 # Package eu.kanade.tachiyomi.network.interceptor
 Useful methods to slow down http requests and prevent IP-ban or accidental DDoS.
 
+# Package eu.kanade.tachiyomi.util
+General utility methods.
