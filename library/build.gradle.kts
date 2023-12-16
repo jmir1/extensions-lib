@@ -9,7 +9,9 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
-val version = "14"
+val ver = "14"
+version = ver
+group = "com.github.aniyomiorg"
 
 android {
     compileSdk = 34
@@ -51,7 +53,7 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         named("main") {
             moduleName.set("extensions-lib")
-            moduleVersion.set(version)
+            moduleVersion.set(ver)
             outputDirectory.set(file("build/docs/"))
             // Speedup doc generation
             // offlineMode.set(true)
@@ -87,9 +89,7 @@ tasks.withType<DokkaTask>().configureEach {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.github.aniyomiorg"
             artifactId = "extensions-lib"
-            version = version
 
             afterEvaluate {
                 from(components["release"])
