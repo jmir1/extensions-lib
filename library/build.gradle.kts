@@ -1,31 +1,33 @@
-import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URL
 import org.jetbrains.dokka.DokkaConfiguration.Visibility
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'maven-publish'
-    id 'org.jetbrains.dokka'
+    id("com.android.library")
+    kotlin("android")
+    `maven-publish`
+    id("org.jetbrains.dokka")
 }
 
+val version = "14"
+
 android {
-    compileSdk 34
+    compileSdk = 34
 
     defaultConfig {
-        versionName '14'
-        minSdk 21
-        targetSdk 34
+        minSdk = 21
+        targetSdk = 34
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        named("release") {
+            isMinifyEnabled = false
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
@@ -41,21 +43,16 @@ dependencies {
     compileOnly("com.github.inorichi.injekt:injekt-core:65b0440")
 
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    def json = "1.5.1"
+    val json = "1.5.1"
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:$json")
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json-okio:$json")
 }
 
-task androidSourcesJar(type: Jar) {
-    classifier 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-tasks.withType(DokkaTask.class) {
+tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets {
         named("main") {
             moduleName.set("extensions-lib")
-            moduleVersion.set(android.defaultConfig.versionName)
+            moduleVersion.set(version)
             outputDirectory.set(file("build/docs/"))
             // Speedup doc generation
             // offlineMode.set(true)
@@ -66,35 +63,38 @@ tasks.withType(DokkaTask.class) {
                 suppress.set(true)
             }
 
-            documentedVisibilities.set([
+            documentedVisibilities.set(listOf(
                 Visibility.PUBLIC,
                 Visibility.PROTECTED
-            ])
+            ))
 
             externalDocumentationLink {
-                url.set(new URL("https://square.github.io/okhttp/4.x/"))
+                url.set(URL("https://square.github.io/okhttp/4.x/"))
                 // https://github.com/square/okhttp/issues/7338
-                packageListUrl.set(new URL("https://colinwhite.me/okhttp3-package-list"))
+                packageListUrl.set(URL("https://colinwhite.me/okhttp3-package-list"))
             }
 
             externalDocumentationLink {
-                url.set(new URL("https://jsoup.org/apidocs/"))
-                packageListUrl.set(new URL("https://jsoup.org/apidocs/element-list"))
+                url.set(URL("https://jsoup.org/apidocs/"))
+                packageListUrl.set(URL("https://jsoup.org/apidocs/element-list"))
             }
 
             externalDocumentationLink {
-                url.set(new URL("https://reactivex.io/RxJava/1.x/javadoc/"))
+                url.set(URL("https://reactivex.io/RxJava/1.x/javadoc/"))
             }
         }
     }
 }
 
-project.afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                artifact androidSourcesJar
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.aniyomiorg"
+            artifactId = "extensions-lib"
+            version = version
+
+            afterEvaluate {
+                from(components["release"])
             }
         }
     }
