@@ -3,10 +3,10 @@ import org.jetbrains.dokka.DokkaConfiguration.Visibility
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     `maven-publish`
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.dokka)
 }
 
 val version = "14"
@@ -36,16 +36,14 @@ android {
 }
 
 dependencies {
-    compileOnly("com.squareup.okhttp3:okhttp:5.0.0-alpha.11")
-    compileOnly("io.reactivex:rxjava:1.3.8")
-    compileOnly("io.reactivex:rxandroid:1.2.1")
-    compileOnly("org.jsoup:jsoup:1.16.1")
-    compileOnly("com.github.inorichi.injekt:injekt-core:65b0440")
-
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    val json = "1.5.1"
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:$json")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json-okio:$json")
+    compileOnly(libs.okhttp)
+    compileOnly(libs.jsoup)
+    compileOnly(libs.rxjava)
+    compileOnly(libs.rxandroid)
+    compileOnly(libs.injekt.core)
+    compileOnly(libs.coroutines)
+    compileOnly(libs.kotlin.json)
+    compileOnly(libs.kotlin.json.okio)
 }
 
 tasks.withType<DokkaTask>().configureEach {
