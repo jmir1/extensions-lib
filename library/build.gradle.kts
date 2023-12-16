@@ -62,15 +62,14 @@ tasks.withType<DokkaTask>().configureEach {
                 suppress.set(true)
             }
 
-            documentedVisibilities.set(listOf(
-                Visibility.PUBLIC,
-                Visibility.PROTECTED
-            ))
+            documentedVisibilities.set(
+                setOf(Visibility.PUBLIC, Visibility.PROTECTED)
+            )
 
+            // Note: this will show up a bruhzillion of warnings due to
+            // https://github.com/Kotlin/dokka/issues/3120
             externalDocumentationLink {
-                url.set(URL("https://square.github.io/okhttp/4.x/"))
-                // https://github.com/square/okhttp/issues/7338
-                packageListUrl.set(URL("https://colinwhite.me/okhttp3-package-list"))
+                url.set(URL("https://square.github.io/okhttp/5.x/"))
             }
 
             externalDocumentationLink {

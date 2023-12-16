@@ -3,7 +3,7 @@ agp_version = "8.2.0"
 coroutines_version = "1.7.1"
 kotlin_version = "1.9.21"
 serialization_version = "1.5.1"
-dokka_version = "1.7.20"
+dokka_version = "1.9.10"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines_version" }
