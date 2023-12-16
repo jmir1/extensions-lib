@@ -3,9 +3,8 @@
 plugins {
     kotlin("android") version "1.7.10" apply false
     id("org.jetbrains.dokka") version "1.7.20" apply false
-    id("com.android.library") version "7.1.3" apply false
+    id("com.android.library") version "8.2.0" apply false
 }
-
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)

@@ -13,10 +13,10 @@ val version = "14"
 
 android {
     compileSdk = 34
+    namespace = "eu.kanade.tachiyomi.animeextensions"
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
     }
 
     buildTypes {
