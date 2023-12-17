@@ -45,7 +45,6 @@ interface AnimeSource {
      * @param episode the episode.
      * @return the videos for the episode.
      */
-    @Suppress("DEPRECATION")
     suspend fun getVideoList(episode: SEpisode): List<Video>
 
     @Deprecated(

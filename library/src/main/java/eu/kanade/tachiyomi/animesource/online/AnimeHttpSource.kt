@@ -238,7 +238,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * Normally it's not needed to override this method.
      *
      * @param anime the anime to update.
-     * @return the chapters for the manga.
+     * @return the episodes for the anime.
      * @throws LicensedEntryItemsException if a anime is licensed and therefore no episodes are available.
      */
     override suspend fun getEpisodeList(anime: SAnime): List<SEpisode> {

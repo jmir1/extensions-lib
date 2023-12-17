@@ -59,7 +59,7 @@ fun OkHttpClient.Builder.rateLimitHost(
  *
  * Examples:
  *
- * url = "https://api.anime.com", permits = 5, period = 1.seconds =>  5 requests per second to api.manga.com
+ * url = "https://api.anime.com", permits = 5, period = 1.seconds =>  5 requests per second to api.anime.com
  * url = "https://cdn.thumbnails.com", permits = 10, period = 2.minutes  =>  10 requests per 2 minutes to cdn.thumbnails.com
  *
  * @since extension-lib 14
