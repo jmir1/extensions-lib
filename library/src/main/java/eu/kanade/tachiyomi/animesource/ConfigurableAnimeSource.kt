@@ -1,35 +1,19 @@
 package eu.kanade.tachiyomi.animesource
 
+import android.content.SharedPreferences
 import androidx.preference.PreferenceScreen
 
 /**
  * A interface to add user preferences to the source.
- *
- * The usual implementation looks like this:
- * ```
- * import android.app.Application
- * import android.content.SharedPreferences
- * import androidx.preference.PreferenceScreen
- * import eu.kanade.tachiyomi.animesource.ConfigurableAnimeSource
- * import eu.kanade.tachiyomi.animesource.online.AnimeHttpSource
- * import uy.kohesive.injekt.Injekt
- * import uy.kohesive.injekt.api.get
- * // some other imports...
- *
- * class SomeSource : ConfigurableAnimeSource, AnimeHttpSource() {
- *     // some code...
- *
- *     private val preferences: SharedPreferences by lazy {
- *         Injekt.get<Application>().getSharedPreferences("source_$id", 0x0000)
- *     }
- *
- *     override fun setupPreferenceScreen(screen: PreferenceScreen) {
- *         // some preferences...
- *     }
- * }
- * ```
  */
 interface ConfigurableAnimeSource {
+
+    /**
+     * Gets instance of [SharedPreferences] scoped to the specific source.
+     *
+     * @since extensions-lib 14
+     */
+    fun getSourcePreferences(): SharedPreferences = throw Exception("stub!")
 
     /**
      * Implementations must override this method to add the user preferences.
