@@ -24,10 +24,10 @@ jobs:
           distribution: zulu
 
       - name: Build documentation
-        run: ./gradlew :library:dokkaHtml
+        run: ./gradlew :library:dokkatooGeneratePublicationHtml
 
       - name: Publish documentation
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           BRANCH: gh-pages
-          FOLDER: library/build/docs
+          FOLDER: library/build/docs/html
