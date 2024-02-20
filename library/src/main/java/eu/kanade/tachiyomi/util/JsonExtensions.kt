@@ -16,7 +16,7 @@ import uy.kohesive.injekt.api.get
  * @since extensions-lib 14
  */
 inline fun <reified T> Response.parseAs(transform: (String) -> String): T {
-    val responseBody = use { transform(it.body.string()) }
+    val responseBody = transform(body.string())
     return Injekt.get<Json>().decodeFromString(responseBody)
 }
 
@@ -30,10 +30,8 @@ inline fun <reified T> Response.parseAs(transform: (String) -> String): T {
  * @since extensions-lib 14
  */
 @ExperimentalSerializationApi
-inline fun <reified T> Response.parseAs(): T = use { res ->
-    res.body.source().use {
-        Injekt.get<Json>().decodeFromBufferedSource(serializer(), it)
-    }
+inline fun <reified T> Response.parseAs(): T = body.source().use {
+    Injekt.get<Json>().decodeFromBufferedSource(serializer(), it)
 }
 
 /**
@@ -46,7 +44,7 @@ inline fun <reified T> String.parseAs(transform: (String) -> String): T =
     Injekt.get<Json>().decodeFromString(transform(this))
 
 /**
- * Parses and serializes the String as the type <T>.
+ * Parses and serializes the Json String as the type <T>.
  *
  * @since extensions-lib 14
  */
