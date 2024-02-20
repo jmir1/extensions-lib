@@ -62,7 +62,7 @@ inline fun <A, B> Iterable<A>.parallelFlatMapBlocking(crossinline f: suspend (A)
 
 /**
  * Parallel implementation of [Iterable.flatMap], but running
- * the transformation function inside a [runCatching] block.
+ * the transformation function inside a try-catch block.
  *
  * @since extensions-lib 14
  */
@@ -70,14 +70,17 @@ suspend inline fun <A, B> Iterable<A>.parallelCatchingFlatMap(crossinline f: sus
     withContext(Dispatchers.IO) {
         map {
             async {
-                runCatching { f(it) }.onFailure(Throwable::printStackTrace).getOrElse { emptyList() }
+                try { f(it) } catch (e: Throwable) {
+                    e.printStackTrace()
+                    emptyList()
+                }
             }
         }.awaitAll().flatten()
     }
 
 /**
  * Thread-blocking parallel implementation of [Iterable.flatMap], but running
- * the transformation function inside a [runCatching] block.
+ * the transformation function inside a try-catch block.
  *
  * @since extensions-lib 14
  */
