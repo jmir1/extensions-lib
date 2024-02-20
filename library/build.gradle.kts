@@ -1,3 +1,4 @@
+import dev.adamko.dokkatoo.dokka.parameters.KotlinPlatform
 import dev.adamko.dokkatoo.dokka.parameters.VisibilityModifier
 
 plugins {
@@ -52,9 +53,10 @@ dokkatoo {
     moduleVersion.set(ver)
     dokkatooPublicationDirectory.set(layout.buildDirectory.dir("docs"))
     dokkatooSourceSets.main {
-        // // Speedup doc generation
-        // // offlineMode.set(true)
         includes.from("Module.md")
+
+        // Temporary workaround for https://github.com/Kotlin/dokka/issues/2876.
+        analysisPlatform.set(KotlinPlatform.JVM)
 
         perPackageOption {
             matchingRegex.set("android.content")
@@ -76,6 +78,32 @@ dokkatoo {
             create("rxjava") {
                 url("https://reactivex.io/RxJava/1.x/javadoc/")
             }
+        }
+
+        val packageRoot = projectDir.resolve("src/main/java/eu/kanade/tachiyomi/")
+        sourceLink {
+            localDirectory.set(packageRoot.resolve("util/JsonExtensions.kt"))
+            remoteUrl("https://github.com/aniyomiorg/extensions-lib/tree/main/library/src/main/java/eu/kanade/tachiyomi/util/JsonExtensions.kt")
+            remoteLineSuffix.set("#L")
+        }
+
+        sourceLink {
+            localDirectory.set(packageRoot.resolve("util/CoroutinesExtensions.kt"))
+            remoteUrl("https://github.com/aniyomiorg/extensions-lib/tree/main/library/src/main/java/eu/kanade/tachiyomi/util/CoroutinesExtensions.kt")
+            remoteLineSuffix.set("#L")
+        }
+
+        sourceLink {
+            localDirectory.set(packageRoot.resolve("animesource/"))
+            remoteUrl("https://github.com/aniyomiorg/aniyomi/tree/master/source-api/src/commonMain/kotlin/eu/kanade/tachiyomi/animesource/")
+            // The line number is wrong, so we're not going to highlight it.
+            remoteLineSuffix.set("#")
+        }
+
+        sourceLink {
+            localDirectory.set(packageRoot.resolve("network/"))
+            remoteUrl("https://github.com/aniyomiorg/aniyomi/tree/master/core/src/main/java/eu/kanade/tachiyomi/network/")
+            remoteLineSuffix.set("#") // Same as before.
         }
     }
 }
