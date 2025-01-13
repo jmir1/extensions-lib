@@ -312,7 +312,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param video the video information.
      */
-    open fun resolveVideoUrl(video: Video): String? {
+    open suspend fun resolveVideoUrl(video: Video): String? {
         return video.videoUrl
     }
 
