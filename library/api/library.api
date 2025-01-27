@@ -126,8 +126,6 @@ public final class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource$DefaultI
 	public static fun getPopularAnime (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getSearchAnime (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getSearchFilters (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Landroid/content/SharedPreferences;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;J)Landroid/content/SharedPreferences;
 	public static fun getSupportsLatest (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
 }
 
@@ -147,16 +145,12 @@ public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
 	public abstract fun getLatestAnimeList (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getName ()Ljava/lang/String;
 	public abstract fun getSearchFilters (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getSourcePreferences ()Landroid/content/SharedPreferences;
-	public abstract fun getSourcePreferences (J)Landroid/content/SharedPreferences;
 	public abstract fun getVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeSource$DefaultImpls {
 	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/AnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/AnimeSource;)Landroid/content/SharedPreferences;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/AnimeSource;J)Landroid/content/SharedPreferences;
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeSource$Language {
@@ -446,8 +440,6 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun getPopularAnime (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getSearchAnime (ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getSearchFilters (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public fun getSourcePreferences ()Landroid/content/SharedPreferences;
-	public fun getSourcePreferences (J)Landroid/content/SharedPreferences;
 	protected fun getSupportedUserAgentType ()Lmihonx/source/model/UserAgentType;
 	public fun getSupportsLatest ()Z
 	protected final fun getUserAgent ()Ljava/lang/String;
@@ -506,8 +498,6 @@ public abstract interface class eu/kanade/tachiyomi/animesource/online/Resolvabl
 public final class eu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource$DefaultImpls {
 	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;)Landroid/content/SharedPreferences;
-	public static fun getSourcePreferences (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;J)Landroid/content/SharedPreferences;
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/online/UriType {
@@ -633,6 +623,11 @@ public final class mihonx/source/model/UserAgentType$Unmanaged : mihonx/source/m
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class mihonx/source/utils/PreferencesKt {
+	public static final fun sourcePreferences (J)Landroid/content/SharedPreferences;
+	public static final fun sourcePreferences (Leu/kanade/tachiyomi/animesource/AnimeSource;)Landroid/content/SharedPreferences;
 }
 
 public final class mihonx/utils/JsonKt {

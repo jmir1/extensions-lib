@@ -115,21 +115,6 @@ interface AnimeSource {
      */
     suspend fun getVideoList(episode: SEpisode): List<Video>
 
-    /**
-     * Gets instance of [SharedPreferences] scoped to the specific source.
-     *
-     * @since extensions-lib 16
-     */
-    fun getSourcePreferences(): SharedPreferences = throw RuntimeException("Stub!")
-
-    /**
-     * Gets instance of [SharedPreferences] corresponding to the source id
-     *
-     * @since extensions-lib 16
-     * @param id the source id
-     */
-    fun getSourcePreferences(id: Long): SharedPreferences = throw RuntimeException("Stub!")
-
     object Language {
         const val MULTI = "multi"
         const val OTHER = "other"
