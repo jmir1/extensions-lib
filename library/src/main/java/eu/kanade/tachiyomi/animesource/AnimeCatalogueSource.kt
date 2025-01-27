@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package eu.kanade.tachiyomi.animesource
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
@@ -6,13 +8,19 @@ import rx.Observable
 
 interface AnimeCatalogueSource : AnimeSource {
 
+    override val language: String get() = throw RuntimeException("Stub!")
+
+    override val hasLatestListing: Boolean get() = throw RuntimeException("Stub!")
+
+    override val hasSearchFilters: Boolean get() = throw RuntimeException("Stub!")
+
+    override suspend fun getSearchFilters(): AnimeFilterList = throw RuntimeException("Stub!")
+
     /**
      * An ISO 639-1 compliant language code (two letters in lower case).
      */
     @Deprecated("Use language instead", ReplaceWith("language"))
     val lang: String get() = throw RuntimeException("Stub!")
-
-    override val language: String get() = throw RuntimeException("Stub!")
 
     /**
      * Whether the source has support for latest updates.
@@ -20,11 +28,11 @@ interface AnimeCatalogueSource : AnimeSource {
     @Deprecated("Use hasLatestListing instead", ReplaceWith("hasLatestListing"))
     val supportsLatest: Boolean get() = throw RuntimeException("Stub!")
 
-    override val hasLatestListing: Boolean get() = throw RuntimeException("Stub!")
-
-    override val hasSearchFilters: Boolean get() = throw RuntimeException("Stub!")
-
-    override suspend fun getSearchFilters(): AnimeFilterList = throw RuntimeException("Stub!")
+    /**
+     * Returns the list of filters for the source.
+     */
+    @Deprecated("Use the new suspend API instead", ReplaceWith("getSearchFilters"))
+    fun getFilterList(): AnimeFilterList
 
     @Deprecated(
         message = "Use getDefaultAnimeList instead",
@@ -52,9 +60,6 @@ interface AnimeCatalogueSource : AnimeSource {
     suspend fun getLatestUpdates(page: Int): AnimesPage {
         throw RuntimeException("Stub!")
     }
-
-    @Deprecated("Use the new suspend variant instead", ReplaceWith("getSearchFilters"))
-    fun getFilterList(): AnimeFilterList
 
     @Deprecated(
         "Use the new suspend variant instead",

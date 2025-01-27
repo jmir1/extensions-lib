@@ -1,8 +1,14 @@
+@file:Suppress("UNUSED", "UNUSED_PARAMETER", "UnusedReceiverParameter")
+
 package eu.kanade.tachiyomi.animesource.online
 
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.animesource.AnimeCatalogueSource
-import eu.kanade.tachiyomi.animesource.model.*
+import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
+import eu.kanade.tachiyomi.animesource.model.AnimesPage
+import eu.kanade.tachiyomi.animesource.model.SAnime
+import eu.kanade.tachiyomi.animesource.model.SEpisode
+import eu.kanade.tachiyomi.animesource.model.Video
 import mihonx.source.model.UserAgentType
 import okhttp3.Headers
 import okhttp3.OkHttpClient
@@ -14,7 +20,6 @@ import rx.Observable
  * A simple implementation for sources from a website.
  * Usually requires the usage of json serialization or similar techniques.
  */
-@Suppress("unused", "unused_parameter")
 abstract class AnimeHttpSource : AnimeCatalogueSource {
 
     /**
@@ -126,20 +131,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getDefaultAnimeList"),
-    )
-    override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
      * Returns the request for the popular anime given the page.
      *
      * @param page the page number to retrieve.
@@ -154,21 +145,18 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     protected abstract fun popularAnimeParse(response: Response): AnimesPage
 
     /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method, but can be useful to change the usual workflow and use functions with
-     * different signatures from [searchAnimeRequest] or [searchAnimeParse].
+     * Returns the request for latest anime given the page.
      *
      * @param page the page number to retrieve.
-     * @param query the search query.
-     * @param filters the list of filters to apply.
      */
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getAnimeList(query, filters, page)"),
-    )
-    override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
+    protected abstract fun latestUpdatesRequest(page: Int): Request
+
+    /**
+     * Parses the response from the site and returns a [AnimesPage] object.
+     *
+     * @param response the response from the site.
+     */
+    protected abstract fun latestUpdatesParse(response: Response): AnimesPage
 
     /**
      * Returns the request for the search anime given the page and filters.
@@ -187,55 +175,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     protected abstract fun searchAnimeParse(response: Response): AnimesPage
 
     /**
-     * Returns an observable containing a page with a list of latest anime updates.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getLatestAnimeList"),
-    )
-    override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Returns the request for latest anime given the page.
-     *
-     * @param page the page number to retrieve.
-     */
-    protected abstract fun latestUpdatesRequest(page: Int): Request
-
-    /**
-     * Parses the response from the site and returns a [AnimesPage] object.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun latestUpdatesParse(response: Response): AnimesPage
-
-    /**
-     * Get the updated details for a anime.
-     * Normally it's not needed to override this method.
-     *
-     * @param anime the anime to be updated.
-     * @return the updated anime.
-     */
-    override suspend fun getAnimeDetails(anime: SAnime): SAnime {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
-    override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
      * Returns the request for the details of a anime. Override only if it's needed to change the
      * url, send different headers or request method like POST.
      *
      * @param anime the anime to be updated.
      */
-    protected open fun animeDetailsRequest(anime: SAnime): Request {
+    open fun animeDetailsRequest(anime: SAnime): Request {
         throw RuntimeException("Stub!")
     }
 
@@ -245,43 +190,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param response the response from the site.
      */
     protected abstract fun animeDetailsParse(response: Response): SAnime
-
-    /**
-     * Get all the available episodes for an anime.
-     * Normally it's not needed to override this method.
-     *
-     * @param anime the anime to update.
-     * @return the episodes for the anime.
-     * @throws LicensedEntryItemsException if a anime is licensed and therefore no episodes are available.
-     */
-    override suspend fun getEpisodeList(anime: SAnime): List<SEpisode> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
-    override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Get the list of videos a episode has. Videos should be returned
-     * in the expected order; the index is ignored.
-     *
-     * @param episode the episode.
-     * @return the videos for the episode.
-     */
-    override suspend fun getVideoList(episode: SEpisode): List<Video> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
-    override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
-        throw RuntimeException("Stub!")
-    }
-
-    protected open fun fetchVideoUrl(video: Video): Observable<String> {
-        throw RuntimeException("Stub!")
-    }
 
     /**
      * Returns the request for updating the episode list. Override only if it's needed to override
@@ -315,9 +223,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param response the response from the site.
      */
-    protected open fun videoListParse(response: Response): List<Video> {
-        throw RuntimeException("Stub!")
-    }
+    protected abstract fun videoListParse(response: Response): List<Video>
 
     /**
      * Sorts the video list.
@@ -352,20 +258,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns the request for getting the url to the source video. Override only if it's needed to
-     * override the url, send different headers or request method like POST.
-     *
-     * @param video the video whose its links have to be fetched.
-     */
-    protected open fun videoUrlRequest(video: Video): Request {
-        throw RuntimeException("Stub!")
-    }
-
-    protected open fun videoUrlParse(response: Response): String {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
      * Assigns the url of the episode without the scheme and domain. It saves some redundancy from
      * database and the urls could still work after a domain change.
      *
@@ -384,16 +276,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     fun SAnime.setUrlWithoutDomain(url: String) {
         throw RuntimeException("Stub!")
     }
-
-    /**
-     * Returns the url of the given string without the scheme and domain.
-     *
-     * @param orig the full url.
-     */
-    private fun getUrlWithoutDomain(orig: String): String {
-        throw RuntimeException("Stub!")
-    }
-
 
     /**
      * Returns the url of the provided anime. Useful to fix "open in webview" 
@@ -419,13 +301,84 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Called before inserting a new episode into database. Use it if you need to override episode
-     * fields, like the title or the episode number. Do not change anything to [anime].
+     * Returns an observable containing a page with a list of anime. Normally it's not needed to
+     * override this method.
      *
-     * @param episode the episode to be added.
-     * @param anime the anime of the episode.
+     * @param page the page number to retrieve.
      */
-    open fun prepareNewEpisode(episode: SEpisode, anime: SAnime) {}
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getDefaultAnimeList"),
+    )
+    override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
+        throw RuntimeException("Stub!")
+    }
+
+    /**
+     * Returns an observable containing a page with a list of latest anime updates.
+     *
+     * @param page the page number to retrieve.
+     */
+    @Deprecated(
+        "Use the new suspend variant instead",
+        ReplaceWith("getLatestAnimeList"),
+    )
+    override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
+        throw RuntimeException("Stub!")
+    }
+
+    /**
+     * Returns an observable containing a page with a list of anime. Normally it's not needed to
+     * override this method, but can be useful to change the usual workflow and use functions with
+     * different signatures from [searchAnimeRequest] or [searchAnimeParse].
+     *
+     * @param page the page number to retrieve.
+     * @param query the search query.
+     * @param filters the list of filters to apply.
+     */
+    @Deprecated(
+        "Use the new suspend variant instead",
+        ReplaceWith("getAnimeList(query, filters, page)"),
+    )
+    override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
+        throw RuntimeException("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
+    override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
+        throw RuntimeException("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
+    override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
+        throw RuntimeException("Stub!")
+    }
+
+    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
+    override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
+        throw RuntimeException("Stub!")
+    }
+
+    @Deprecated("Use resolveVideo instead")
+    protected open fun fetchVideoUrl(video: Video): Observable<String> {
+        throw RuntimeException("Stub!")
+    }
+
+    /**
+     * Returns the request for getting the url to the source video. Override only if it's needed to
+     * override the url, send different headers or request method like POST.
+     *
+     * @param video the video whose its links have to be fetched.
+     */
+    @Deprecated("Unused")
+    protected open fun videoUrlRequest(video: Video): Request {
+        throw RuntimeException("Stub!")
+    }
+
+    @Deprecated("Use resolveVideo instead")
+    protected open fun videoUrlParse(response: Response): String {
+        throw RuntimeException("Stub!")
+    }
 
     /**
      * Returns the list of filters for the source.
@@ -437,4 +390,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     override fun getFilterList(): AnimeFilterList {
         throw RuntimeException("Stub!")
     }
+
+    /**
+     * Called before inserting a new episode into database. Use it if you need to override episode
+     * fields, like the title or the episode number. Do not change anything to [anime].
+     *
+     * @param episode the episode to be added.
+     * @param anime the anime of the episode.
+     */
+    @Deprecated("All these modification should be done when constructing the episode")
+    open fun prepareNewEpisode(episode: SEpisode, anime: SAnime) {}
 }

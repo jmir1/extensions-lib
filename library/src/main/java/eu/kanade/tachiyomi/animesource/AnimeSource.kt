@@ -1,6 +1,7 @@
+@file:Suppress("UNUSED")
+
 package eu.kanade.tachiyomi.animesource
 
-import android.content.SharedPreferences
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
 import eu.kanade.tachiyomi.animesource.model.Video
@@ -27,7 +28,7 @@ interface AnimeSource {
      * Represents an IETF BCP 47 compliant language tag.
      * Special cases include:
      * - [Language.MULTI]: Indicates multiple languages.
-     * - [Language.OTHER]: Refers to a language not explicitly defined.
+     * - [Language.OTHER]: Refers to a language not explicitly defined by the source (e.g. text less, unofficially supported language).
      * - 'all': Indicates multiple language.
      *
      * Usage of 'all' is highly discouraged and is only supported due to legacy reasons.
@@ -38,6 +39,8 @@ interface AnimeSource {
 
     /**
      * Indicates if the source supports search filters
+     *
+     * @since extensions-lib 16
      */
     val hasSearchFilters: Boolean
 
@@ -57,6 +60,7 @@ interface AnimeSource {
      * Get a page with a list of anime.
      *
      * @since extensions-lib 16
+     *
      * @param page the page number to retrieve.
      */
     suspend fun getDefaultAnimeList(page: Int): AnimesPage
@@ -65,6 +69,7 @@ interface AnimeSource {
      * Get a page with a list of latest anime updates.
      *
      * @since extensions-lib 16
+     *
      * @param page the page number to retrieve.
      */
     suspend fun getLatestAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
@@ -73,9 +78,10 @@ interface AnimeSource {
      * Get a page with a list of anime.
      *
      * @since extensions-lib 16
-     * @param query the search query.
-     * @param filters the list of filters to apply.
-     * @param page the page number to retrieve.
+     *
+     * @param query     the search query.
+     * @param filters   the list of filters to apply.
+     * @param page      the page number to retrieve.
      */
     suspend fun getAnimeList(query: String, filters: AnimeFilterList, page: Int): AnimesPage
 
@@ -83,8 +89,8 @@ interface AnimeSource {
      * Get the updated details for an aime and its episodes
      *
      * @since extensions-lib 16
+     *
      * @param anime anime to get details and episodes for
-     * @return the updated anime and its episodes
      */
     suspend fun getAnimeDetailsAndEpisodes(anime: SAnime): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
 
@@ -92,8 +98,8 @@ interface AnimeSource {
      * Get the updated details for a anime.
      *
      * @since extensions-lib 14
+     *
      * @param anime the anime to update.
-     * @return the updated anime.
      */
     suspend fun getAnimeDetails(anime: SAnime): SAnime
 
@@ -101,8 +107,8 @@ interface AnimeSource {
      * Get all the available episodes for a anime.
      *
      * @since extensions-lib 14
+     *
      * @param anime the anime to update.
-     * @return the episodes for the anime.
      */
     suspend fun getEpisodeList(anime: SAnime): List<SEpisode>
 
@@ -110,13 +116,29 @@ interface AnimeSource {
      * Get the list of videos a episode has.
      *
      * @since extensions-lib 14
+     *
      * @param episode the episode.
-     * @return the videos for the episode.
      */
     suspend fun getVideoList(episode: SEpisode): List<Video>
 
+    /**
+     * Object for holding the special cases supported by [AnimeSource.language].
+     *
+     * @since extensions-lib 16
+     */
     object Language {
+        /**
+         * Indicates multiple languages.
+         *
+         * @since extensions-lib 16
+         */
         const val MULTI = "multi"
+
+        /**
+         * Refers to a language not explicitly defined by the source (e.g. text less, unofficially supported language)
+         *
+         * @since extensions-lib 16
+         */
         const val OTHER = "other"
     }
 

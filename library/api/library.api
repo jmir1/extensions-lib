@@ -409,7 +409,7 @@ public final class eu/kanade/tachiyomi/animesource/model/Video {
 public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : eu/kanade/tachiyomi/animesource/AnimeCatalogueSource {
 	public fun <init> ()V
 	protected abstract fun animeDetailsParse (Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/SAnime;
-	protected fun animeDetailsRequest (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lokhttp3/Request;
+	public fun animeDetailsRequest (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lokhttp3/Request;
 	protected abstract fun episodeListParse (Lokhttp3/Response;)Ljava/util/List;
 	protected fun episodeListRequest (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lokhttp3/Request;
 	public fun fetchAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
@@ -420,12 +420,10 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun fetchVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lrx/Observable;
 	protected fun fetchVideoUrl (Leu/kanade/tachiyomi/animesource/model/Video;)Lrx/Observable;
 	protected final fun generateId (Ljava/lang/String;Ljava/lang/String;I)J
-	public fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAnimeUrl (Leu/kanade/tachiyomi/animesource/model/SAnime;)Ljava/lang/String;
 	public abstract fun getBaseUrl ()Ljava/lang/String;
 	public fun getClient ()Lokhttp3/OkHttpClient;
-	public fun getEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getEpisodeUrl (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Ljava/lang/String;
 	public fun getFilterList ()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
 	public fun getHasLatestListing ()Z
@@ -444,7 +442,6 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun getSupportsLatest ()Z
 	protected final fun getUserAgent ()Ljava/lang/String;
 	public fun getVersionId ()I
-	public fun getVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	protected fun headersBuilder ()Lokhttp3/Headers$Builder;
 	protected abstract fun latestUpdatesParse (Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
 	protected abstract fun latestUpdatesRequest (I)Lokhttp3/Request;
@@ -457,7 +454,7 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public final fun setUrlWithoutDomain (Leu/kanade/tachiyomi/animesource/model/SEpisode;Ljava/lang/String;)V
 	protected fun sort (Ljava/util/List;)Ljava/util/List;
 	public fun toString ()Ljava/lang/String;
-	protected fun videoListParse (Lokhttp3/Response;)Ljava/util/List;
+	protected abstract fun videoListParse (Lokhttp3/Response;)Ljava/util/List;
 	protected fun videoListRequest (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lokhttp3/Request;
 	protected fun videoUrlParse (Lokhttp3/Response;)Ljava/lang/String;
 	protected fun videoUrlRequest (Leu/kanade/tachiyomi/animesource/model/Video;)Lokhttp3/Request;
