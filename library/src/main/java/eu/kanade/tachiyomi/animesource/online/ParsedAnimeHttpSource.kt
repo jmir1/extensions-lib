@@ -1,10 +1,11 @@
+@file:Suppress("UNUSED")
+
 package eu.kanade.tachiyomi.animesource.online
 
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
 import eu.kanade.tachiyomi.animesource.model.Video
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.SAnime
-import okhttp3.Request
 import okhttp3.Response
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -12,7 +13,7 @@ import org.jsoup.nodes.Element
 /**
  * A simple implementation for sources from a website using Jsoup, an HTML parser.
  */
-@Suppress("unused", "unused_parameter")
+@Deprecated("Use your own implementation made with Ksoup")
 abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
 
     /**
