@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED", "UNUSED_PARAMETER", "UnusedReceiverParameter")
+@file:Suppress("UNUSED", "UNUSED_PARAMETER", "UnusedReceiverParameter", "DEPRECATION")
 
 package eu.kanade.tachiyomi.animesource.online
 
@@ -21,21 +21,6 @@ import rx.Observable
  * Usually requires the usage of json serialization or similar techniques.
  */
 abstract class AnimeHttpSource : AnimeCatalogueSource {
-
-    /**
-     * Type of UserAgent a source needs
-     */
-    protected open val supportedUserAgentType: UserAgentType = UserAgentType.Universal
-
-    /**
-     * Network service.
-     */
-    protected val network: NetworkHelper = throw RuntimeException("Stub!")
-
-    /**
-     * @since extensions-lib 16
-     */
-    protected fun getUserAgent(): String = throw RuntimeException("Stub!")
 
     /**
      * Base url of the website without the trailing slash, like: http://mysite.com
@@ -61,169 +46,54 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     override val id: Long = throw RuntimeException("Stub!")
 
     /**
-     * Headers used for requests. Result of [headersBuilder]
+     * Network service.
+     */
+    protected val network: NetworkHelper = throw RuntimeException("Stub!")
+
+    /**
+     * Headers used for requests.
      */
     val headers: Headers = throw RuntimeException("Stub!")
 
     /**
-     * Default network client for doing requests. Implementations can override this property
-     * for custom [OkHttpClient] instances.
-     *
-     * **Usage example:**
-     * ```
-     * import okhttp3.Dns
-     * .....
-     * override val client: OkHttpClient = 
-     *     network.client
-     *         .newBuilder()
-     *         .addInterceptor(RecaptchaDestroyer())
-     *         .dns(Dns.SYSTEM)
-     *         .build()
-     * ```
+     * Default network client for doing requests.
      */
     open val client: OkHttpClient = throw RuntimeException("Stub!")
 
-    override suspend fun getSearchFilters(): AnimeFilterList = throw RuntimeException("Stub!")
+    /**
+     * Type of UserAgent a source needs
+     */
+    protected open val supportedUserAgentType: UserAgentType = UserAgentType.Universal
 
     /**
-     * Generates a unique ID for the source based on the provided [name], [lang] and
-     * [versionId]. It will use the first 16 characters (64 bits) of the MD5 of the string
-     * `"${name.lowercase()}/$lang/$versionId"`.
-     *
-     * Note: the generated ID sets the sign bit to `0`.
-     *
-     * Can be used to generate outdated IDs, such as when the source name or language
-     * needs to be changed but migrations can be avoided.
-     *
-     * @since extensions-lib 14
-     * @param name [String] the name of the source
-     * @param lang [String] the language of the source
-     * @param versionId [Int] the version ID of the source
-     * @return a unique ID for the source
+     * @since extensions-lib 16
      */
-    protected fun generateId(name: String, lang: String, versionId: Int): Long {
-        throw RuntimeException("Stub!")
-    }
+    protected fun getUserAgent(): String = throw RuntimeException("Stub!")
 
     /**
      * Headers builder for requests. Implementations can override this method for custom headers.
-     *
-     * **Usage examples:**
-     * ```
-     * // Adds headers to the default [Headers.Builder] instance, retaining
-     * // headers like the default(or user-made) User-Agent.
-     * override fun headersBuilder() = super.headersBuilder().add("Referer", baseUrl)
-     * ```
-     * ```
-     * // Creates a new, empty [Headers.Builder] instance and adds a single header.
-     * override fun headersBuilder() = Headers.Builder().add("Referer", baseUrl)
-     * ```
      */
-    protected open fun headersBuilder(): Headers.Builder {
-        throw RuntimeException("Stub!")
-    }
+     protected open fun headersBuilder(): Headers.Builder {
+         throw RuntimeException("Stub!")
+     }
 
-    /**
-     * Visible name of the source.
-     */
-    override fun toString(): String {
-        throw RuntimeException("Stub!")
-    }
+    override suspend fun getDefaultAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
 
-    /**
-     * Returns the request for the popular anime given the page.
-     *
-     * @param page the page number to retrieve.
-     */
-    protected abstract fun popularAnimeRequest(page: Int): Request
+    override suspend fun getLatestAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
 
-    /**
-     * Parses the response from the site and returns a [AnimesPage] object.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun popularAnimeParse(response: Response): AnimesPage
+    override suspend fun getAnimeList(
+        query: String,
+        filters: AnimeFilterList,
+        page: Int
+    ): AnimesPage = throw RuntimeException("Stub!")
 
-    /**
-     * Returns the request for latest anime given the page.
-     *
-     * @param page the page number to retrieve.
-     */
-    protected abstract fun latestUpdatesRequest(page: Int): Request
+    override suspend fun getAnimeDetails(
+        anime: SAnime,
+        updateAnime: Boolean,
+        fetchEpisodes: Boolean
+    ): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
 
-    /**
-     * Parses the response from the site and returns a [AnimesPage] object.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun latestUpdatesParse(response: Response): AnimesPage
-
-    /**
-     * Returns the request for the search anime given the page and filters.
-     *
-     * @param page the page number to retrieve.
-     * @param query the search query.
-     * @param filters the list of filters to apply.
-     */
-    protected abstract fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList): Request
-
-    /**
-     * Parses the response from the site and returns a [AnimesPage] object.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun searchAnimeParse(response: Response): AnimesPage
-
-    /**
-     * Returns the request for the details of a anime. Override only if it's needed to change the
-     * url, send different headers or request method like POST.
-     *
-     * @param anime the anime to be updated.
-     */
-    open fun animeDetailsRequest(anime: SAnime): Request {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Parses the response from the site and returns the details of a anime.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun animeDetailsParse(response: Response): SAnime
-
-    /**
-     * Returns the request for updating the episode list. Override only if it's needed to override
-     * the url, send different headers or request method like POST.
-     *
-     * @param anime the anime to look for episodes.
-     */
-    protected open fun episodeListRequest(anime: SAnime): Request {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Parses the response from the site and returns a list of episodes.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun episodeListParse(response: Response): List<SEpisode>
-
-    /**
-     * Returns the request for getting the video list. Override only if it's needed to override
-     * the url, send different headers or request method like POST.
-     *
-     * @param episode the episode to look for videos.
-     */
-    protected open fun videoListRequest(episode: SEpisode): Request {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Parses the response from the site and returns a list of videos.
-     *
-     * @param response the response from the site.
-     */
-    protected abstract fun videoListParse(response: Response): List<Video>
+    override suspend fun getVideoList(episode: SEpisode): List<Video> = throw RuntimeException("Stub!")
 
     /**
      * Sorts the video list.
@@ -299,6 +169,123 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     open fun getEpisodeUrl(episode: SEpisode): String {
         throw RuntimeException("Stub!")
     }
+
+    override fun toString(): String {
+        throw RuntimeException("Stub!")
+    }
+
+    /**
+     * Returns the request for the popular anime given the page.
+     *
+     * @param page the page number to retrieve.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getDefaultAnimeList]")
+    open fun popularAnimeRequest(page: Int): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns a [AnimesPage] object.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getDefaultAnimeList]")
+    open fun popularAnimeParse(response: Response): AnimesPage = throw RuntimeException("Stub!")
+
+    /**
+     * Returns the request for latest anime given the page.
+     *
+     * @param page the page number to retrieve.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getLatestAnimeList]")
+    open fun latestUpdatesRequest(page: Int): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns a [AnimesPage] object.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getLatestAnimeList]")
+    open fun latestUpdatesParse(response: Response): AnimesPage = throw RuntimeException("Stub!")
+
+    /**
+     * Returns the request for the search anime given the page and filters.
+     *
+     * @param page the page number to retrieve.
+     * @param query the search query.
+     * @param filters the list of filters to apply.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getAnimeList]")
+    open fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns a [AnimesPage] object.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getAnimeList]")
+    open fun searchAnimeParse(response: Response): AnimesPage = throw RuntimeException("Stub!")
+
+    /**
+     * Returns the request for the details of a anime. Override only if it's needed to change the
+     * url, send different headers or request method like POST.
+     *
+     * @param anime the anime to be updated.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getAnimeDetails]")
+    open fun animeDetailsRequest(anime: SAnime): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns the details of a anime.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getAnimeDetails]")
+    open fun animeDetailsParse(response: Response): SAnime = throw RuntimeException("Stub!")
+
+    /**
+     * Returns the request for updating the episode list. Override only if it's needed to override
+     * the url, send different headers or request method like POST.
+     *
+     * @param anime the anime to look for episodes.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getEpisodeList]")
+    open fun episodeListRequest(anime: SAnime): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns a list of episodes.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getEpisodeList]")
+    open fun episodeListParse(response: Response): List<SEpisode> = throw RuntimeException("Stub!")
+
+    /**
+     * Returns the request for getting the video list. Override only if it's needed to override
+     * the url, send different headers or request method like POST.
+     *
+     * @param episode the episode to look for videos.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getVideoList]")
+    open fun videoListRequest(episode: SEpisode): Request = throw RuntimeException("Stub!")
+
+    /**
+     * Parses the response from the site and returns a list of videos.
+     *
+     * @param response the response from the site.
+     */
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Directly implement inside [getVideoList]")
+    open fun videoListParse(response: Response): List<Video> = throw RuntimeException("Stub!")
 
     /**
      * Returns an observable containing a page with a list of anime. Normally it's not needed to

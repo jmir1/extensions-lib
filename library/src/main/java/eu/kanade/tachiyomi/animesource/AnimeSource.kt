@@ -94,7 +94,7 @@ interface AnimeSource {
      * @param updateAnime   whether to update the anime details or not
      * @param fetchEpisodes whether to fetch episodes or not.
      */
-    suspend fun getAnimeDetailsAndEpisodes(
+    suspend fun getAnimeDetails(
         anime: SAnime,
         updateAnime: Boolean,
         fetchEpisodes: Boolean,
@@ -107,7 +107,9 @@ interface AnimeSource {
      *
      * @param episode the episode.
      */
-    suspend fun getVideoList(episode: SEpisode): List<Video>
+    suspend fun getVideoList(episode: SEpisode): List<Video> = throw RuntimeException("Stub!")
+
+    override fun toString(): String
 
     /**
      * Object for holding the special cases supported by [AnimeSource.language].
@@ -133,14 +135,14 @@ interface AnimeSource {
     @Deprecated(
         message = "Use the new combined API instead",
         level = DeprecationLevel.ERROR,
-        replaceWith = ReplaceWith("getAnimeDetailsAndEpisodes(anime, true, false)")
+        replaceWith = ReplaceWith("getAnimeDetails(anime, true, false)")
     )
     suspend fun getAnimeDetails(anime: SAnime): SAnime
 
     @Deprecated(
         message = "Use the new combined API instead",
         level = DeprecationLevel.ERROR,
-        replaceWith = ReplaceWith("getAnimeDetailsAndEpisodes(anime, false, true)")
+        replaceWith = ReplaceWith("getAnimeDetails(anime, false, true)")
     )
     suspend fun getEpisodeList(anime: SAnime): List<SEpisode>
 
