@@ -16,6 +16,12 @@ import rx.Observable
 @Suppress("unused", "unused_parameter")
 abstract class AnimeHttpSource : AnimeCatalogueSource {
 
+    @Suppress("DEPRECATION")
+    override val language: String get() = lang
+
+    @Suppress("DEPRECATION")
+    override val hasSearchFilters: Boolean get() = getFilterList().isNotEmpty()
+
     /**
      * Network service.
      */
@@ -66,6 +72,11 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * ```
      */
     open val client: OkHttpClient = throw Exception("Stub!")
+
+    override suspend fun getSearchFilters(): AnimeFilterList {
+        @Suppress("DEPRECATION")
+        return getFilterList()
+    }
 
     /**
      * Generates a unique ID for the source based on the provided [name], [lang] and
@@ -417,6 +428,10 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Returns the list of filters for the source.
      */
+    @Deprecated(
+        "Use the new suspend variant instead",
+        replaceWith = ReplaceWith("getSearchFilters")
+    )
     override fun getFilterList(): AnimeFilterList {
         throw Exception("Stub!")
     }

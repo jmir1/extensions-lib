@@ -9,6 +9,7 @@ interface AnimeCatalogueSource : AnimeSource {
     /**
      * An ISO 639-1 compliant language code (two letters in lower case).
      */
+    @Deprecated("Use language instead", ReplaceWith("language"))
     val lang: String
 
     /**
@@ -51,6 +52,7 @@ interface AnimeCatalogueSource : AnimeSource {
     /**
      * Returns the list of filters for the source.
      */
+    @Deprecated("Use the new suspend variant instead", ReplaceWith("getSearchFilters"))
     fun getFilterList(): AnimeFilterList
 
     @Deprecated(
