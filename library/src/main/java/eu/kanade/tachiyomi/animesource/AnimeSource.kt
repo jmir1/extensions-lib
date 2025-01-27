@@ -90,27 +90,15 @@ interface AnimeSource {
      *
      * @since extensions-lib 16
      *
-     * @param anime anime to get details and episodes for
+     * @param anime         anime to get details and episodes for.
+     * @param updateAnime   whether to update the anime details or not
+     * @param fetchEpisodes whether to fetch episodes or not.
      */
-    suspend fun getAnimeDetailsAndEpisodes(anime: SAnime): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
-
-    /**
-     * Get the updated details for a anime.
-     *
-     * @since extensions-lib 14
-     *
-     * @param anime the anime to update.
-     */
-    suspend fun getAnimeDetails(anime: SAnime): SAnime
-
-    /**
-     * Get all the available episodes for a anime.
-     *
-     * @since extensions-lib 14
-     *
-     * @param anime the anime to update.
-     */
-    suspend fun getEpisodeList(anime: SAnime): List<SEpisode>
+    suspend fun getAnimeDetailsAndEpisodes(
+        anime: SAnime,
+        updateAnime: Boolean,
+        fetchEpisodes: Boolean,
+    ): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
 
     /**
      * Get the list of videos a episode has.
@@ -141,6 +129,20 @@ interface AnimeSource {
          */
         const val OTHER = "other"
     }
+
+    @Deprecated(
+        message = "Use the new combined API instead",
+        level = DeprecationLevel.ERROR,
+        replaceWith = ReplaceWith("getAnimeDetailsAndEpisodes(anime, true, false)")
+    )
+    suspend fun getAnimeDetails(anime: SAnime): SAnime
+
+    @Deprecated(
+        message = "Use the new combined API instead",
+        level = DeprecationLevel.ERROR,
+        replaceWith = ReplaceWith("getAnimeDetailsAndEpisodes(anime, false, true)")
+    )
+    suspend fun getEpisodeList(anime: SAnime): List<SEpisode>
 
     @Deprecated(
         "Use the non-RxJava API instead",

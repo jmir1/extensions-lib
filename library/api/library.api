@@ -116,7 +116,7 @@ public abstract interface class eu/kanade/tachiyomi/animesource/AnimeCatalogueSo
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource$DefaultImpls {
-	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getHasLatestListing (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
 	public static fun getHasSearchFilters (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
 	public static fun getLang (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Ljava/lang/String;
@@ -134,7 +134,7 @@ public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
 	public abstract fun fetchEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
 	public abstract fun fetchVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lrx/Observable;
 	public abstract fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAnimeList (Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getDefaultAnimeList (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -149,7 +149,7 @@ public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeSource$DefaultImpls {
-	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/AnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -420,7 +420,7 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun fetchVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lrx/Observable;
 	protected fun fetchVideoUrl (Leu/kanade/tachiyomi/animesource/model/Video;)Lrx/Observable;
 	protected final fun generateId (Ljava/lang/String;Ljava/lang/String;I)J
-	public fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAnimeUrl (Leu/kanade/tachiyomi/animesource/model/SAnime;)Ljava/lang/String;
 	public abstract fun getBaseUrl ()Ljava/lang/String;
 	public fun getClient ()Lokhttp3/OkHttpClient;
@@ -493,7 +493,7 @@ public abstract interface class eu/kanade/tachiyomi/animesource/online/Resolvabl
 }
 
 public final class eu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource$DefaultImpls {
-	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getAnimeDetailsAndEpisodes (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
