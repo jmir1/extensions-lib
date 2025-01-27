@@ -20,7 +20,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Type of UserAgent a source needs
      */
-    open val supportedUserAgentType: UserAgentType = throw RuntimeException("Stub!")
+    protected open val supportedUserAgentType: UserAgentType = UserAgentType.Any
 
     /**
      * Network service.
@@ -114,7 +114,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * override fun headersBuilder() = Headers.Builder().add("Referer", baseUrl)
      * ```
      */
-    open fun headersBuilder(): Headers.Builder {
+    protected open fun headersBuilder(): Headers.Builder {
         throw RuntimeException("Stub!")
     }
 
@@ -144,14 +144,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param page the page number to retrieve.
      */
-    abstract fun popularAnimeRequest(page: Int): Request
+    protected abstract fun popularAnimeRequest(page: Int): Request
 
     /**
      * Parses the response from the site and returns a [AnimesPage] object.
      *
      * @param response the response from the site.
      */
-    abstract fun popularAnimeParse(response: Response): AnimesPage
+    protected abstract fun popularAnimeParse(response: Response): AnimesPage
 
     /**
      * Returns an observable containing a page with a list of anime. Normally it's not needed to
@@ -177,14 +177,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param query the search query.
      * @param filters the list of filters to apply.
      */
-    abstract fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList): Request
+    protected abstract fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList): Request
 
     /**
      * Parses the response from the site and returns a [AnimesPage] object.
      *
      * @param response the response from the site.
      */
-    abstract fun searchAnimeParse(response: Response): AnimesPage
+    protected abstract fun searchAnimeParse(response: Response): AnimesPage
 
     /**
      * Returns an observable containing a page with a list of latest anime updates.
@@ -204,14 +204,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param page the page number to retrieve.
      */
-    abstract fun latestUpdatesRequest(page: Int): Request
+    protected abstract fun latestUpdatesRequest(page: Int): Request
 
     /**
      * Parses the response from the site and returns a [AnimesPage] object.
      *
      * @param response the response from the site.
      */
-    abstract fun latestUpdatesParse(response: Response): AnimesPage
+    protected abstract fun latestUpdatesParse(response: Response): AnimesPage
 
     /**
      * Get the updated details for a anime.
@@ -235,7 +235,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param anime the anime to be updated.
      */
-    open fun animeDetailsRequest(anime: SAnime): Request {
+    protected open fun animeDetailsRequest(anime: SAnime): Request {
         throw RuntimeException("Stub!")
     }
 
@@ -244,7 +244,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param response the response from the site.
      */
-    abstract fun animeDetailsParse(response: Response): SAnime
+    protected abstract fun animeDetailsParse(response: Response): SAnime
 
     /**
      * Get all the available episodes for an anime.
@@ -279,7 +279,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         throw RuntimeException("Stub!")
     }
 
-    open fun fetchVideoUrl(video: Video): Observable<String> {
+    protected open fun fetchVideoUrl(video: Video): Observable<String> {
         throw RuntimeException("Stub!")
     }
 
@@ -289,7 +289,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param anime the anime to look for episodes.
      */
-    open fun episodeListRequest(anime: SAnime): Request {
+    protected open fun episodeListRequest(anime: SAnime): Request {
         throw RuntimeException("Stub!")
     }
 
@@ -298,7 +298,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param response the response from the site.
      */
-    abstract fun episodeListParse(response: Response): List<SEpisode>
+    protected abstract fun episodeListParse(response: Response): List<SEpisode>
 
     /**
      * Returns the request for getting the video list. Override only if it's needed to override
@@ -306,7 +306,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param episode the episode to look for videos.
      */
-    open fun videoListRequest(episode: SEpisode): Request {
+    protected open fun videoListRequest(episode: SEpisode): Request {
         throw RuntimeException("Stub!")
     }
 
@@ -315,7 +315,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param response the response from the site.
      */
-    open fun videoListParse(response: Response): List<Video> {
+    protected open fun videoListParse(response: Response): List<Video> {
         throw RuntimeException("Stub!")
     }
 
@@ -347,7 +347,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * }
      * ```
      */
-    open fun List<Video>.sort(): List<Video> {
+    protected open fun List<Video>.sort(): List<Video> {
         throw RuntimeException("Stub!")
     }
 
@@ -357,11 +357,11 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param video the video whose its links have to be fetched.
      */
-    open fun videoUrlRequest(video: Video): Request {
+    protected open fun videoUrlRequest(video: Video): Request {
         throw RuntimeException("Stub!")
     }
 
-    open fun videoUrlParse(response: Response): String {
+    protected open fun videoUrlParse(response: Response): String {
         throw RuntimeException("Stub!")
     }
 
@@ -371,7 +371,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param url the full url to the episode.
      */
-    @Suppress("UnusedReceiverParameter")
     fun SEpisode.setUrlWithoutDomain(url: String) {
         throw RuntimeException("Stub!")
     }
@@ -382,7 +381,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * @param url the full url to the anime.
      */
-    @Suppress("UnusedReceiverParameter")
     fun SAnime.setUrlWithoutDomain(url: String) {
         throw RuntimeException("Stub!")
     }

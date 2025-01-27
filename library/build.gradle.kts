@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     `maven-publish`
     alias(libs.plugins.dokkatoo)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
 val ver = "14"

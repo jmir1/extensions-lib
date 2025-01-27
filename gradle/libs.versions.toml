@@ -4,6 +4,7 @@ coroutines_version = "1.7.1"
 kotlin_version = "2.1.0"
 serialization_version = "1.8.0"
 dokkatoo_version = "2.1.0"
+binary_compat_validator_version = "0.17.0"
 
 [libraries]
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines_version" }
@@ -21,3 +22,4 @@ rxjava = { module = "io.reactivex:rxjava", version = "1.3.8" }
 android-library = { id = "com.android.library", version.ref = "agp_version" }
 dokkatoo = { id = "dev.adamko.dokkatoo", version.ref = "dokkatoo_version" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin_version" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary_compat_validator_version" }
