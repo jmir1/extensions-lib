@@ -4,7 +4,6 @@ package eu.kanade.tachiyomi.animesource
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
-import rx.Observable
 
 @Deprecated(
     message = "Use the base AnimeSource class instead",
@@ -71,22 +70,4 @@ interface AnimeCatalogueSource : AnimeSource {
         replaceWith = ReplaceWith("getAnimeList(query, filters, page)")
     )
     suspend fun getSearchAnime(page: Int, query: String, filters: AnimeFilterList): AnimesPage = throw RuntimeException("Stub!")
-
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getDefaultAnimeList"),
-    )
-    fun fetchPopularAnime(page: Int): Observable<AnimesPage>
-
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getAnimeList"),
-    )
-    fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage>
-
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getLatestAnimeList"),
-    )
-    fun fetchLatestUpdates(page: Int): Observable<AnimesPage>
 }

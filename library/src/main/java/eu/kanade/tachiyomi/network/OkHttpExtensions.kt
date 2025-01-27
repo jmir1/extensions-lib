@@ -2,11 +2,6 @@ package eu.kanade.tachiyomi.network
 
 import okhttp3.Call
 import okhttp3.Response
-import rx.Observable
-
-fun Call.asObservable(): Observable<Response> = throw RuntimeException("Stub!")
-
-fun Call.asObservableSuccess(): Observable<Response> = throw RuntimeException("Stub!")
 
 suspend fun Call.await(): Response = throw RuntimeException("Stub!")
 

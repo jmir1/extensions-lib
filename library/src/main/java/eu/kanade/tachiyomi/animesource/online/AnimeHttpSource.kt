@@ -14,7 +14,6 @@ import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import rx.Observable
 
 /**
  * A simple implementation for sources from a website.
@@ -286,70 +285,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     @Suppress("DeprecatedCallableAddReplaceWith")
     @Deprecated("Directly implement inside [getVideoList]")
     open fun videoListParse(response: Response): List<Video> = throw RuntimeException("Stub!")
-
-    /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getDefaultAnimeList"),
-    )
-    override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Returns an observable containing a page with a list of latest anime updates.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getLatestAnimeList"),
-    )
-    override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method, but can be useful to change the usual workflow and use functions with
-     * different signatures from [searchAnimeRequest] or [searchAnimeParse].
-     *
-     * @param page the page number to retrieve.
-     * @param query the search query.
-     * @param filters the list of filters to apply.
-     */
-    @Deprecated(
-        "Use the new suspend variant instead",
-        ReplaceWith("getAnimeList(query, filters, page)"),
-    )
-    override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
-    override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
-    override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
-    override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use resolveVideo instead")
-    protected open fun fetchVideoUrl(video: Video): Observable<String> {
-        throw RuntimeException("Stub!")
-    }
 
     /**
      * Returns the request for getting the url to the source video. Override only if it's needed to

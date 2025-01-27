@@ -100,9 +100,6 @@ public final class eu/kanade/tachiyomi/AppInfo {
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource : eu/kanade/tachiyomi/animesource/AnimeSource {
-	public abstract fun fetchLatestUpdates (I)Lrx/Observable;
-	public abstract fun fetchPopularAnime (I)Lrx/Observable;
-	public abstract fun fetchSearchAnime (ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Lrx/Observable;
 	public abstract fun getAnimeList (Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getDefaultAnimeList (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getFilterList ()Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
@@ -137,9 +134,6 @@ public final class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource$DefaultI
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
-	public abstract fun fetchAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
-	public abstract fun fetchEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
-	public abstract fun fetchVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lrx/Observable;
 	public abstract fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getAnimeList (Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -421,13 +415,6 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun animeDetailsRequest (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lokhttp3/Request;
 	public fun episodeListParse (Lokhttp3/Response;)Ljava/util/List;
 	public fun episodeListRequest (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lokhttp3/Request;
-	public fun fetchAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
-	public fun fetchEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;)Lrx/Observable;
-	public fun fetchLatestUpdates (I)Lrx/Observable;
-	public fun fetchPopularAnime (I)Lrx/Observable;
-	public fun fetchSearchAnime (ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Lrx/Observable;
-	public fun fetchVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lrx/Observable;
-	protected fun fetchVideoUrl (Leu/kanade/tachiyomi/animesource/model/Video;)Lrx/Observable;
 	public fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAnimeList (Ljava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getAnimeUrl (Leu/kanade/tachiyomi/animesource/model/SAnime;)Ljava/lang/String;
@@ -551,8 +538,6 @@ public final class eu/kanade/tachiyomi/network/NetworkHelper {
 }
 
 public final class eu/kanade/tachiyomi/network/OkHttpExtensionsKt {
-	public static final fun asObservable (Lokhttp3/Call;)Lrx/Observable;
-	public static final fun asObservableSuccess (Lokhttp3/Call;)Lrx/Observable;
 	public static final fun await (Lokhttp3/Call;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSuccess (Lokhttp3/Call;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
