@@ -7,16 +7,16 @@ import java.util.concurrent.TimeUnit
 @Suppress("unused_parameter")
 class NetworkHelper(context: Context) {
 
-    val client: OkHttpClient = throw Exception("Stub!")
+    val client: OkHttpClient = throw RuntimeException("Stub!")
 
     /**
      * @deprecated Since extension-lib 14
      */
     @Deprecated("The regular client handles Cloudflare by default")
-    val cloudflareClient: OkHttpClient = throw Exception("Stub!")
+    val cloudflareClient: OkHttpClient = throw RuntimeException("Stub!")
 
     /**
      * @since extension-lib v14
      */
-    fun defaultUserAgentProvider(): String = throw Exception("Stub!")
+    fun defaultUserAgentProvider(): String = throw RuntimeException("Stub!")
 }

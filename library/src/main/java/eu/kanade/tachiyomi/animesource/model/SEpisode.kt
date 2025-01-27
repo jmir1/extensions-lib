@@ -14,7 +14,7 @@ interface SEpisode {
 
     companion object {
         fun create(): SEpisode {
-            throw Exception("Stub!")
+            throw RuntimeException("Stub!")
         }
     }
 

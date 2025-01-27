@@ -54,7 +54,7 @@ interface AnimeSource {
      * @since extensions-lib 16
      * @param page the page number to retrieve.
      */
-    suspend fun getDefaultAnimeList(page: Int): AnimesPage = throw Exception("Stub!")
+    suspend fun getDefaultAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
 
     /**
      * Get a page with a list of latest anime updates.
@@ -62,7 +62,7 @@ interface AnimeSource {
      * @since extensions-lib 16
      * @param page the page number to retrieve.
      */
-    suspend fun getLatestAnimeList(page: Int): AnimesPage = throw Exception("Stub!")
+    suspend fun getLatestAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
 
     /**
      * Get a page with a list of anime.
@@ -72,7 +72,7 @@ interface AnimeSource {
      * @param filters the list of filters to apply.
      * @param page the page number to retrieve.
      */
-    suspend fun getAnimeList(query: String, filters: AnimeFilterList, page: Int): AnimesPage = throw Exception("Stub!")
+    suspend fun getAnimeList(query: String, filters: AnimeFilterList, page: Int): AnimesPage = throw RuntimeException("Stub!")
 
     /**
      * Get the updated details for an aime and its episodes
@@ -81,7 +81,7 @@ interface AnimeSource {
      * @param anime anime to get details and episodes for
      * @return the updated anime and its episodes
      */
-    suspend fun getAnimeDetailsAndEpisodes(anime: SAnime): Pair<SAnime, List<SEpisode>> = throw Exception("Stub!")
+    suspend fun getAnimeDetailsAndEpisodes(anime: SAnime): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
 
     /**
      * Get the updated details for a anime.
@@ -133,7 +133,7 @@ interface AnimeSource {
      *
      * @since extensions-lib 16
      */
-    fun getSourcePreferences(): SharedPreferences = throw Exception("Stub!")
+    fun getSourcePreferences(): SharedPreferences = throw RuntimeException("Stub!")
 
     /**
      * Gets instance of [SharedPreferences] corresponding to the source id
@@ -141,7 +141,7 @@ interface AnimeSource {
      * @since extensions-lib 16
      * @param id the source id
      */
-    fun getSourcePreferences(id: Long): SharedPreferences = throw Exception("Stub!")
+    fun getSourcePreferences(id: Long): SharedPreferences = throw RuntimeException("Stub!")
 
     object Language {
         const val MULTI = "multi"

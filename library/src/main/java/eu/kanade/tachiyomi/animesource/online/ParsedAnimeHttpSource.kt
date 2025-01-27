@@ -20,7 +20,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun popularAnimeParse(response: Response): AnimesPage {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -48,7 +48,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun searchAnimeParse(response: Response): AnimesPage {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun latestUpdatesParse(response: Response): AnimesPage {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun animeDetailsParse(response: Response): SAnime {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun episodeListParse(response: Response): List<SEpisode> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param response the response from the site.
      */
     override fun videoListParse(response: Response): List<Video> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
     protected abstract fun videoFromElement(element: Element): Video
 
     override fun videoUrlParse(response: Response): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**

@@ -45,7 +45,7 @@ interface SAnime {
         const val ON_HIATUS = 6
 
         fun create(): SAnime {
-            throw Exception("Stub!")
+            throw RuntimeException("Stub!")
         }
     }
 

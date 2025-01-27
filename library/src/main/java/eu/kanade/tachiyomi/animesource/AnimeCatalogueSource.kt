@@ -23,7 +23,7 @@ interface AnimeCatalogueSource : AnimeSource {
         replaceWith = ReplaceWith("getDefaultAnimeList")
     )
     suspend fun getPopularAnime(page: Int): AnimesPage {
-       throw Exception("Stub!") 
+       throw RuntimeException("Stub!") 
     }
 
     @Deprecated(
@@ -32,7 +32,7 @@ interface AnimeCatalogueSource : AnimeSource {
         replaceWith = ReplaceWith("getAnimeList(query, filters, page)")
     )
     suspend fun getSearchAnime(page: Int, query: String, filters: AnimeFilterList): AnimesPage {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     @Deprecated(
@@ -41,7 +41,7 @@ interface AnimeCatalogueSource : AnimeSource {
         replaceWith = ReplaceWith("getLatestAnimeList")
     )
     suspend fun getLatestUpdates(page: Int): AnimesPage {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     @Deprecated("Use the new suspend variant instead", ReplaceWith("getSearchFilters"))

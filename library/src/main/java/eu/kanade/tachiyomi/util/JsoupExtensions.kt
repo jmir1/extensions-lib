@@ -9,5 +9,5 @@ import org.jsoup.nodes.Document
  */
 @Suppress("unused_parameter")
 fun Response.asJsoup(html: String? = null): Document {
-    throw Exception("Stub!")
+    throw RuntimeException("Stub!")
 }

@@ -17,9 +17,9 @@ import rx.Observable
 @Suppress("unused", "unused_parameter")
 abstract class AnimeHttpSource : AnimeCatalogueSource {
 
-    override val language: String = throw Exception("Stub!")
+    override val language: String = throw RuntimeException("Stub!")
 
-    override val hasSearchFilters: Boolean = throw Exception("Stub!")
+    override val hasSearchFilters: Boolean = throw RuntimeException("Stub!")
 
     /**
      * Type of UserAgent a source needs
@@ -29,12 +29,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Network service.
      */
-    protected val network: NetworkHelper = throw Exception("Stub!")
+    protected val network: NetworkHelper = throw RuntimeException("Stub!")
 
     /**
      * @since extensions-lib 16
      */
-    protected fun getUserAgent(): String = throw Exception("Stub!")
+    protected fun getUserAgent(): String = throw RuntimeException("Stub!")
 
     /**
      * Base url of the website without the trailing slash, like: http://mysite.com
@@ -45,7 +45,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * Version id used to generate the source id. If the site completely changes and urls are
      * incompatible, you may increase this value and it'll be considered as a new source.
      */
-    open val versionId: Int = throw Exception("Stub!")
+    open val versionId: Int = throw RuntimeException("Stub!")
 
     /**
      * ID of the source. By default it uses a generated id using the first 16 characters (64 bits)
@@ -57,12 +57,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *
      * Note: the generated ID sets the sign bit to `0`.
      */
-    override val id: Long = throw Exception("Stub!")
+    override val id: Long = throw RuntimeException("Stub!")
 
     /**
      * Headers used for requests. Result of [headersBuilder]
      */
-    val headers: Headers = throw Exception("Stub!")
+    val headers: Headers = throw RuntimeException("Stub!")
 
     /**
      * Default network client for doing requests. Implementations can override this property
@@ -80,9 +80,9 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      *         .build()
      * ```
      */
-    open val client: OkHttpClient = throw Exception("Stub!")
+    open val client: OkHttpClient = throw RuntimeException("Stub!")
 
-    override suspend fun getSearchFilters(): AnimeFilterList = throw Exception("Stub!")
+    override suspend fun getSearchFilters(): AnimeFilterList = throw RuntimeException("Stub!")
 
     /**
      * Generates a unique ID for the source based on the provided [name], [lang] and
@@ -101,7 +101,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return a unique ID for the source
      */
     protected fun generateId(name: String, lang: String, versionId: Int): Long {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -119,14 +119,14 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * ```
      */
     protected open fun headersBuilder(): Headers.Builder {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
      * Visible name of the source.
      */
     override fun toString(): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         ReplaceWith("getPopularAnime"),
     )
     override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -171,7 +171,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         ReplaceWith("getSearchAnime"),
     )
     override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -200,7 +200,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         ReplaceWith("getLatestUpdates"),
     )
     override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -225,12 +225,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return the updated anime.
      */
     override suspend fun getAnimeDetails(anime: SAnime): SAnime {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
     override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -240,7 +240,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param anime the anime to be updated.
      */
     open fun animeDetailsRequest(anime: SAnime): Request {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -259,12 +259,12 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @throws LicensedEntryItemsException if a anime is licensed and therefore no episodes are available.
      */
     override suspend fun getEpisodeList(anime: SAnime): List<SEpisode> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
     override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -275,16 +275,16 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return the videos for the episode.
      */
     override suspend fun getVideoList(episode: SEpisode): List<Video> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
     override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     open fun fetchVideoUrl(video: Video): Observable<String> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -294,7 +294,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param anime the anime to look for episodes.
      */
     protected open fun episodeListRequest(anime: SAnime): Request {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -311,7 +311,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param episode the episode to look for videos.
      */
     protected open fun videoListRequest(episode: SEpisode): Request {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -320,7 +320,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param response the response from the site.
      */
     protected open fun videoListParse(response: Response): List<Video> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -352,7 +352,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * ```
      */
     protected open fun List<Video>.sort(): List<Video> {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -362,11 +362,11 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param video the video whose its links have to be fetched.
      */
     protected open fun videoUrlRequest(video: Video): Request {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     protected open fun videoUrlParse(response: Response): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -376,7 +376,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param url the full url to the episode.
      */
     fun SEpisode.setUrlWithoutDomain(url: String) {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -386,7 +386,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param url the full url to the anime.
      */
     fun SAnime.setUrlWithoutDomain(url: String) {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -395,7 +395,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param orig the full url.
      */
     private fun getUrlWithoutDomain(orig: String): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
 
@@ -408,7 +408,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return url of the anime
      */
     open fun getAnimeUrl(anime: SAnime): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -419,7 +419,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return url of the episode
      */
     open fun getEpisodeUrl(episode: SEpisode): String {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 
     /**
@@ -439,6 +439,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         replaceWith = ReplaceWith("getSearchFilters")
     )
     override fun getFilterList(): AnimeFilterList {
-        throw Exception("Stub!")
+        throw RuntimeException("Stub!")
     }
 }
