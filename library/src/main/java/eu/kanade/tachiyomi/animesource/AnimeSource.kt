@@ -51,6 +51,22 @@ interface AnimeSource {
      * Get a page with a list of anime.
      *
      * @since extensions-lib 16
+     * @param page the page number to retrieve.
+     */
+    suspend fun getDefaultAnimeList(page: Int): AnimesPage = throw Exception("Stub!")
+
+    /**
+     * Get a page with a list of latest anime updates.
+     *
+     * @since extensions-lib 16
+     * @param page the page number to retrieve.
+     */
+    suspend fun getLatestAnimeList(page: Int): AnimesPage = throw Exception("Stub!")
+
+    /**
+     * Get a page with a list of anime.
+     *
+     * @since extensions-lib 16
      * @param query the search query.
      * @param filters the list of filters to apply.
      * @param page the page number to retrieve.

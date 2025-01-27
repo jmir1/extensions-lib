@@ -17,59 +17,51 @@ interface AnimeCatalogueSource : AnimeSource {
      */
     val supportsLatest: Boolean
 
-    /**
-     * Get a page with a list of anime.
-     *
-     * @since extensions-lib 14
-     * @param page the page number to retrieve.
-     */
+    @Deprecated(
+        message = "Use getDefaultAnimeList instead",
+        level = DeprecationLevel.ERROR,
+        replaceWith = ReplaceWith("getDefaultAnimeList")
+    )
     suspend fun getPopularAnime(page: Int): AnimesPage {
        throw Exception("Stub!") 
     }
 
-    /**
-     * Get a page with a list of anime.
-     *
-     * @since extensions-lib 14
-     * @param page the page number to retrieve.
-     * @param query the search query.
-     * @param filters the list of filters to apply.
-     */
+    @Deprecated(
+        message = "Use getAnimeList instead",
+        level = DeprecationLevel.ERROR,
+        replaceWith = ReplaceWith("getAnimeList(query, filters, page)")
+    )
     suspend fun getSearchAnime(page: Int, query: String, filters: AnimeFilterList): AnimesPage {
         throw Exception("Stub!")
     }
 
-    /**
-     * Get a page with a list of latest anime updates.
-     *
-     * @since extensions-lib 14
-     * @param page the page number to retrieve.
-     */
+    @Deprecated(
+        message = "Use getLatestAnimeList instead",
+        level = DeprecationLevel.ERROR,
+        replaceWith = ReplaceWith("getLatestAnimeList")
+    )
     suspend fun getLatestUpdates(page: Int): AnimesPage {
         throw Exception("Stub!")
     }
 
-    /**
-     * Returns the list of filters for the source.
-     */
     @Deprecated("Use the new suspend variant instead", ReplaceWith("getSearchFilters"))
     fun getFilterList(): AnimeFilterList
 
     @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getPopularAnime"),
+        "Use the new suspend variant instead",
+        ReplaceWith("getDefaultAnimeList"),
     )
     fun fetchPopularAnime(page: Int): Observable<AnimesPage>
 
     @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getSearchAnime"),
+        "Use the new suspend variant instead",
+        ReplaceWith("getAnimeList"),
     )
     fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage>
 
     @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getLatestUpdates"),
+        "Use the new suspend variant instead",
+        ReplaceWith("getLatestAnimeList"),
     )
     fun fetchLatestUpdates(page: Int): Observable<AnimesPage>
 }
