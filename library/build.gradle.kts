@@ -35,6 +35,13 @@ android {
     kotlinOptions {
         jvmTarget = javaVersion.toString()
     }
+
+    publishing {
+        singleVariant("release") {
+            withJavadocJar()
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -111,6 +118,7 @@ dokkatoo {
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            groupId = "com.github.aniyomiorg"
             artifactId = "extensions-lib"
 
             afterEvaluate {
