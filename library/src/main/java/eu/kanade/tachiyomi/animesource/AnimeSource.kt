@@ -46,6 +46,8 @@ interface AnimeSource {
 
     /**
      * Whether the source has a list for latest updates
+     *
+     * @since extensions-lib 16
      */
     val hasLatestListing: Boolean
 
