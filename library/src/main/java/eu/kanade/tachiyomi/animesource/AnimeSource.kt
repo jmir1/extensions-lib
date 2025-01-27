@@ -1,5 +1,6 @@
 package eu.kanade.tachiyomi.animesource
 
+import android.content.SharedPreferences
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
 import eu.kanade.tachiyomi.animesource.model.Video
@@ -126,6 +127,21 @@ interface AnimeSource {
         ReplaceWith("getVideoList"),
     )
     fun fetchVideoList(episode: SEpisode): Observable<List<Video>>
+
+    /**
+     * Gets instance of [SharedPreferences] scoped to the specific source.
+     *
+     * @since extensions-lib 16
+     */
+    fun getSourcePreferences(): SharedPreferences = throw Exception("Stub!")
+
+    /**
+     * Gets instance of [SharedPreferences] corresponding to the source id
+     *
+     * @since extensions-lib 16
+     * @param id the source id
+     */
+    fun getSourcePreferences(id: Long): SharedPreferences = throw Exception("Stub!")
 
     object Language {
         const val MULTI = "multi"
