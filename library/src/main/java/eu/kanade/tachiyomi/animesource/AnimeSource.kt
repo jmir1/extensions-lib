@@ -42,6 +42,11 @@ interface AnimeSource {
     val hasSearchFilters: Boolean
 
     /**
+     * Whether the source has a list for latest updates
+     */
+    val hasLatestListing: Boolean
+
+    /**
      * Returns the list of filters for the source.
      *
      * @since extensions-lib 16
@@ -54,7 +59,7 @@ interface AnimeSource {
      * @since extensions-lib 16
      * @param page the page number to retrieve.
      */
-    suspend fun getDefaultAnimeList(page: Int): AnimesPage = throw RuntimeException("Stub!")
+    suspend fun getDefaultAnimeList(page: Int): AnimesPage
 
     /**
      * Get a page with a list of latest anime updates.
@@ -72,7 +77,7 @@ interface AnimeSource {
      * @param filters the list of filters to apply.
      * @param page the page number to retrieve.
      */
-    suspend fun getAnimeList(query: String, filters: AnimeFilterList, page: Int): AnimesPage = throw RuntimeException("Stub!")
+    suspend fun getAnimeList(query: String, filters: AnimeFilterList, page: Int): AnimesPage
 
     /**
      * Get the updated details for an aime and its episodes
@@ -110,24 +115,6 @@ interface AnimeSource {
      */
     suspend fun getVideoList(episode: SEpisode): List<Video>
 
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getAnimeDetails"),
-    )
-    fun fetchAnimeDetails(anime: SAnime): Observable<SAnime>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getEpisodeList"),
-    )
-    fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getVideoList"),
-    )
-    fun fetchVideoList(episode: SEpisode): Observable<List<Video>>
-
     /**
      * Gets instance of [SharedPreferences] scoped to the specific source.
      *
@@ -147,4 +134,22 @@ interface AnimeSource {
         const val MULTI = "multi"
         const val OTHER = "other"
     }
+
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getAnimeDetails"),
+    )
+    fun fetchAnimeDetails(anime: SAnime): Observable<SAnime>
+
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getEpisodeList"),
+    )
+    fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>>
+
+    @Deprecated(
+        "Use the non-RxJava API instead",
+        ReplaceWith("getVideoList"),
+    )
+    fun fetchVideoList(episode: SEpisode): Observable<List<Video>>
 }
