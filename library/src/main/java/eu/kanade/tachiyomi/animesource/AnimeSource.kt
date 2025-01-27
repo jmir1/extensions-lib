@@ -4,6 +4,7 @@ package eu.kanade.tachiyomi.animesource
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
+import eu.kanade.tachiyomi.animesource.model.Hoster
 import eu.kanade.tachiyomi.animesource.model.Video
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.SAnime
@@ -102,13 +103,22 @@ interface AnimeSource {
     ): Pair<SAnime, List<SEpisode>> = throw RuntimeException("Stub!")
 
     /**
-     * Get the list of videos a episode has.
+     * Get the list of hosters for an episode
      *
-     * @since extensions-lib 14
+     * @since extensions-lib 16
      *
-     * @param episode the episode.
+     * @param episode the episode
      */
-    suspend fun getVideoList(episode: SEpisode): List<Video> = throw RuntimeException("Stub!")
+    suspend fun getHosterList(episode: SEpisode): List<Hoster> = throw RuntimeException("Stub!")
+
+    /**
+     * Get the list of videos for a hoster
+     *
+     * @since extensions-lib 16
+     *
+     * @param hoster the hoster
+     */
+    suspend fun getVideoList(hoster: Hoster): List<Video> = throw RuntimeException("Stub!")
 
     override fun toString(): String
 

@@ -122,6 +122,7 @@ public final class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource$DefaultI
 	public static fun getFilterList (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;
 	public static fun getHasLatestListing (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
 	public static fun getHasSearchFilters (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
+	public static fun getHosterList (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLang (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Ljava/lang/String;
 	public static fun getLanguage (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Ljava/lang/String;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -130,7 +131,7 @@ public final class eu/kanade/tachiyomi/animesource/AnimeCatalogueSource$DefaultI
 	public static fun getSearchAnime (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getSearchFilters (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getSupportsLatest (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;)Z
-	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/AnimeCatalogueSource;Leu/kanade/tachiyomi/animesource/model/Hoster;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
@@ -141,19 +142,21 @@ public abstract interface class eu/kanade/tachiyomi/animesource/AnimeSource {
 	public abstract fun getEpisodeList (Leu/kanade/tachiyomi/animesource/model/SAnime;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getHasLatestListing ()Z
 	public abstract fun getHasSearchFilters ()Z
+	public abstract fun getHosterList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getId ()J
 	public abstract fun getLanguage ()Ljava/lang/String;
 	public abstract fun getLatestAnimeList (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getName ()Ljava/lang/String;
 	public abstract fun getSearchFilters (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getVideoList (Leu/kanade/tachiyomi/animesource/model/Hoster;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun toString ()Ljava/lang/String;
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeSource$DefaultImpls {
 	public static fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getHosterList (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/AnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/AnimeSource;Leu/kanade/tachiyomi/animesource/model/Hoster;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class eu/kanade/tachiyomi/animesource/AnimeSource$Language {
@@ -311,6 +314,41 @@ public final class eu/kanade/tachiyomi/animesource/model/AnimesPage {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class eu/kanade/tachiyomi/animesource/model/ChapterType : java/lang/Enum {
+	public static final field Ending Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static final field MixedOp Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static final field Opening Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static final field Other Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static final field Recap Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public static fun values ()[Leu/kanade/tachiyomi/animesource/model/ChapterType;
+}
+
+public final class eu/kanade/tachiyomi/animesource/model/Hoster {
+	public static final field Companion Leu/kanade/tachiyomi/animesource/model/Hoster$Companion;
+	public static final field NO_HOSTER_LIST Ljava/lang/String;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;)Leu/kanade/tachiyomi/animesource/model/Hoster;
+	public static synthetic fun copy$default (Leu/kanade/tachiyomi/animesource/model/Hoster;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Leu/kanade/tachiyomi/animesource/model/Hoster;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHosterName ()Ljava/lang/String;
+	public final fun getHosterUrl ()Ljava/lang/String;
+	public final fun getInternalData ()Ljava/lang/String;
+	public final fun getVideoList ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class eu/kanade/tachiyomi/animesource/model/Hoster$Companion {
+}
+
 public abstract interface class eu/kanade/tachiyomi/animesource/model/SAnime {
 	public static final field CANCELLED I
 	public static final field COMPLETED I
@@ -371,6 +409,24 @@ public final class eu/kanade/tachiyomi/animesource/model/SEpisode$Companion {
 	public final fun create ()Leu/kanade/tachiyomi/animesource/model/SEpisode;
 }
 
+public final class eu/kanade/tachiyomi/animesource/model/TimeStamp {
+	public fun <init> (DDLjava/lang/String;Leu/kanade/tachiyomi/animesource/model/ChapterType;)V
+	public synthetic fun <init> (DDLjava/lang/String;Leu/kanade/tachiyomi/animesource/model/ChapterType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public final fun copy (DDLjava/lang/String;Leu/kanade/tachiyomi/animesource/model/ChapterType;)Leu/kanade/tachiyomi/animesource/model/TimeStamp;
+	public static synthetic fun copy$default (Leu/kanade/tachiyomi/animesource/model/TimeStamp;DDLjava/lang/String;Leu/kanade/tachiyomi/animesource/model/ChapterType;ILjava/lang/Object;)Leu/kanade/tachiyomi/animesource/model/TimeStamp;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEnd ()D
+	public final fun getName ()Ljava/lang/String;
+	public final fun getStart ()D
+	public final fun getType ()Leu/kanade/tachiyomi/animesource/model/ChapterType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class eu/kanade/tachiyomi/animesource/model/Track {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -385,24 +441,32 @@ public final class eu/kanade/tachiyomi/animesource/model/Track {
 }
 
 public final class eu/kanade/tachiyomi/animesource/model/Video {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/net/Uri;Lokhttp3/Headers;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/net/Uri;Lokhttp3/Headers;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lokhttp3/Headers;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lokhttp3/Headers;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lokhttp3/Headers;Ljava/util/List;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lokhttp3/Headers;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Lokhttp3/Headers;
-	public final fun component5 ()Ljava/util/List;
-	public final fun component6 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lokhttp3/Headers;Ljava/util/List;Ljava/util/List;)Leu/kanade/tachiyomi/animesource/model/Video;
-	public static synthetic fun copy$default (Leu/kanade/tachiyomi/animesource/model/Video;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lokhttp3/Headers;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Leu/kanade/tachiyomi/animesource/model/Video;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Lokhttp3/Headers;
+	public final fun component6 ()Z
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lokhttp3/Headers;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Leu/kanade/tachiyomi/animesource/model/Video;
+	public static synthetic fun copy$default (Leu/kanade/tachiyomi/animesource/model/Video;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Lokhttp3/Headers;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Leu/kanade/tachiyomi/animesource/model/Video;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioTracks ()Ljava/util/List;
+	public final fun getBitrate ()Ljava/lang/Integer;
 	public final fun getHeaders ()Lokhttp3/Headers;
-	public final fun getQuality ()Ljava/lang/String;
+	public final fun getInternalData ()Ljava/lang/String;
+	public final fun getPreferred ()Z
+	public final fun getResolution ()Ljava/lang/Integer;
 	public final fun getSubtitleTracks ()Ljava/util/List;
-	public final fun getUrl ()Ljava/lang/String;
+	public final fun getTimestamps ()Ljava/util/List;
+	public final fun getVideoTitle ()Ljava/lang/String;
 	public final fun getVideoUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun setVideoUrl (Ljava/lang/String;)V
@@ -426,6 +490,7 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun getHasLatestListing ()Z
 	public fun getHasSearchFilters ()Z
 	public final fun getHeaders ()Lokhttp3/Headers;
+	public fun getHosterList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun getId ()J
 	public fun getLang ()Ljava/lang/String;
 	public fun getLanguage ()Ljava/lang/String;
@@ -439,18 +504,20 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun getSupportsLatest ()Z
 	protected final fun getUserAgent ()Ljava/lang/String;
 	public fun getVersionId ()I
-	public fun getVideoList (Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun getVideoList (Leu/kanade/tachiyomi/animesource/model/Hoster;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	protected fun headersBuilder ()Lokhttp3/Headers$Builder;
 	public fun latestUpdatesParse (Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
 	public fun latestUpdatesRequest (I)Lokhttp3/Request;
 	public fun popularAnimeParse (Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
 	public fun popularAnimeRequest (I)Lokhttp3/Request;
 	public fun prepareNewEpisode (Leu/kanade/tachiyomi/animesource/model/SEpisode;Leu/kanade/tachiyomi/animesource/model/SAnime;)V
+	public fun resolveVideo (Leu/kanade/tachiyomi/animesource/model/Video;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun searchAnimeParse (Lokhttp3/Response;)Leu/kanade/tachiyomi/animesource/model/AnimesPage;
 	public fun searchAnimeRequest (ILjava/lang/String;Leu/kanade/tachiyomi/animesource/model/AnimeFilterList;)Lokhttp3/Request;
 	public final fun setUrlWithoutDomain (Leu/kanade/tachiyomi/animesource/model/SAnime;Ljava/lang/String;)V
 	public final fun setUrlWithoutDomain (Leu/kanade/tachiyomi/animesource/model/SEpisode;Ljava/lang/String;)V
-	protected fun sort (Ljava/util/List;)Ljava/util/List;
+	protected fun sortHosters (Ljava/util/List;)Ljava/util/List;
+	protected fun sortVideos (Ljava/util/List;)Ljava/util/List;
 	public fun toString ()Ljava/lang/String;
 	public fun videoListParse (Lokhttp3/Response;)Ljava/util/List;
 	public fun videoListRequest (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lokhttp3/Request;
@@ -488,8 +555,9 @@ public abstract interface class eu/kanade/tachiyomi/animesource/online/Resolvabl
 
 public final class eu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource$DefaultImpls {
 	public static fun getAnimeDetails (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SAnime;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getHosterList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun getLatestAnimeList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/SEpisode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun getVideoList (Leu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource;Leu/kanade/tachiyomi/animesource/model/Hoster;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/online/UriType {
