@@ -1,11 +1,27 @@
 package eu.kanade.tachiyomi.animesource
 
+import android.content.SharedPreferences
 import androidx.preference.PreferenceScreen
 
 /**
  * A interface to add user preferences to the source.
  */
 interface ConfigurableAnimeSource {
+    /**
+     * Gets instance of [SharedPreferences] scoped to the specific source.
+     *
+     * @since extensions-lib 16
+     */
+    protected fun getSourcePreferences(): SharedPreferences = throw Exception("Stub!")
+
+    /**
+     * Gets instance of [SharedPreferences] corrisponding to the source id
+     *
+     * @parm id the source id
+     * @since extensions-lib 16
+     */
+    protected fun getSourcePreferences(id: Long): SharedPreferences = throw Exception("Stub!")
+
     /**
      * Implementations must override this method to add the user preferences.
      *
