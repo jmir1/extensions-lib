@@ -48,6 +48,7 @@ android {
 dependencies {
     compileOnly(libs.okhttp)
     compileOnly(libs.jsoup)
+    compileOnly(libs.ksoup)
     compileOnly(libs.rxjava)
     compileOnly(libs.rxandroid)
     compileOnly(libs.injekt.core)
