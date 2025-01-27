@@ -454,8 +454,6 @@ public abstract class eu/kanade/tachiyomi/animesource/online/AnimeHttpSource : e
 	public fun toString ()Ljava/lang/String;
 	public fun videoListParse (Lokhttp3/Response;)Ljava/util/List;
 	public fun videoListRequest (Leu/kanade/tachiyomi/animesource/model/SEpisode;)Lokhttp3/Request;
-	protected fun videoUrlParse (Lokhttp3/Response;)Ljava/lang/String;
-	protected fun videoUrlRequest (Leu/kanade/tachiyomi/animesource/model/Video;)Lokhttp3/Request;
 }
 
 public abstract class eu/kanade/tachiyomi/animesource/online/ParsedAnimeHttpSource : eu/kanade/tachiyomi/animesource/online/AnimeHttpSource {
@@ -480,8 +478,6 @@ public abstract class eu/kanade/tachiyomi/animesource/online/ParsedAnimeHttpSour
 	protected abstract fun videoFromElement (Lorg/jsoup/nodes/Element;)Leu/kanade/tachiyomi/animesource/model/Video;
 	public fun videoListParse (Lokhttp3/Response;)Ljava/util/List;
 	protected abstract fun videoListSelector ()Ljava/lang/String;
-	protected fun videoUrlParse (Lokhttp3/Response;)Ljava/lang/String;
-	protected abstract fun videoUrlParse (Lorg/jsoup/nodes/Document;)Ljava/lang/String;
 }
 
 public abstract interface class eu/kanade/tachiyomi/animesource/online/ResolvableAnimeSource : eu/kanade/tachiyomi/animesource/AnimeSource {

@@ -287,22 +287,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     open fun videoListParse(response: Response): List<Video> = throw RuntimeException("Stub!")
 
     /**
-     * Returns the request for getting the url to the source video. Override only if it's needed to
-     * override the url, send different headers or request method like POST.
-     *
-     * @param video the video whose its links have to be fetched.
-     */
-    @Deprecated("Unused")
-    protected open fun videoUrlRequest(video: Video): Request {
-        throw RuntimeException("Stub!")
-    }
-
-    @Deprecated("Use resolveVideo instead")
-    protected open fun videoUrlParse(response: Response): String {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
      * Returns the list of filters for the source.
      */
     @Deprecated(

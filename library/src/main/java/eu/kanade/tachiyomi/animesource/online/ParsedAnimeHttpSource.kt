@@ -156,15 +156,4 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
      * @param element an element obtained from [videoListSelector].
      */
     protected abstract fun videoFromElement(element: Element): Video
-
-    override fun videoUrlParse(response: Response): String {
-        throw RuntimeException("Stub!")
-    }
-
-    /**
-     * Returns the absolute url to the video url from the document.
-     *
-     * @param document the parsed document.
-     */
-    protected abstract fun videoUrlParse(document: Document): String
 }
