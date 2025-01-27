@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED")
 
-package eu.kanade.tachiyomi.animesource.model
+package aniyomix.source.model
+
+import eu.kanade.tachiyomi.animesource.model.Video
 
 /**
  * Data class for representing a hoster
