@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.binary.compatibility.validator)
 }
 
-val ver = "16"
+val ver = "16-rc1"
 version = ver
 group = "com.github.aniyomiorg"
 
