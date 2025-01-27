@@ -20,7 +20,7 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     /**
      * Type of UserAgent a source needs
      */
-    protected open val supportedUserAgentType: UserAgentType = UserAgentType.Any
+    protected open val supportedUserAgentType: UserAgentType = UserAgentType.Universal
 
     /**
      * Network service.
