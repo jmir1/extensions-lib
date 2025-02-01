@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.dokkatoo)
 }
 
-val ver = "14"
+val ver = "16-rc1"
 version = ver
 group = "com.github.aniyomiorg"
 
