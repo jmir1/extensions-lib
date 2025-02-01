@@ -3,7 +3,6 @@ package eu.kanade.tachiyomi.animesource
 import eu.kanade.tachiyomi.animesource.model.Video
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.SAnime
-import rx.Observable
 
 /**
  * A basic interface for creating a source. It could be an online source, a local source, etc...
@@ -46,22 +45,4 @@ interface AnimeSource {
      * @return the videos for the episode.
      */
     suspend fun getVideoList(episode: SEpisode): List<Video>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getAnimeDetails"),
-    )
-    fun fetchAnimeDetails(anime: SAnime): Observable<SAnime>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getEpisodeList"),
-    )
-    fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getVideoList"),
-    )
-    fun fetchVideoList(episode: SEpisode): Observable<List<Video>>
 }

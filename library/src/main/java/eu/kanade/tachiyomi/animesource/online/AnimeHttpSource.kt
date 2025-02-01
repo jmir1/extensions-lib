@@ -7,7 +7,6 @@ import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import rx.Observable
 
 /**
  * A simple implementation for sources from a website.
@@ -113,20 +112,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getPopularAnime"),
-    )
-    override fun fetchPopularAnime(page: Int): Observable<AnimesPage> {
-        throw Exception("Stub!")
-    }
-
-    /**
      * Returns the request for the popular anime given the page.
      *
      * @param page the page number to retrieve.
@@ -139,23 +124,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param response the response from the site.
      */
     protected abstract fun popularAnimeParse(response: Response): AnimesPage
-
-    /**
-     * Returns an observable containing a page with a list of anime. Normally it's not needed to
-     * override this method, but can be useful to change the usual workflow and use functions with
-     * different signatures from [searchAnimeRequest] or [searchAnimeParse].
-     *
-     * @param page the page number to retrieve.
-     * @param query the search query.
-     * @param filters the list of filters to apply.
-     */
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getSearchAnime"),
-    )
-    override fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage> {
-        throw Exception("Stub!")
-    }
 
     /**
      * Returns the request for the search anime given the page and filters.
@@ -172,19 +140,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @param response the response from the site.
      */
     protected abstract fun searchAnimeParse(response: Response): AnimesPage
-
-    /**
-     * Returns an observable containing a page with a list of latest anime updates.
-     *
-     * @param page the page number to retrieve.
-     */
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getLatestUpdates"),
-    )
-    override fun fetchLatestUpdates(page: Int): Observable<AnimesPage> {
-        throw Exception("Stub!")
-    }
 
     /**
      * Returns the request for latest anime given the page.
@@ -208,11 +163,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return the updated anime.
      */
     override suspend fun getAnimeDetails(anime: SAnime): SAnime {
-        throw Exception("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getAnimeDetails"))
-    override fun fetchAnimeDetails(anime: SAnime): Observable<SAnime> {
         throw Exception("Stub!")
     }
 
@@ -245,11 +195,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
         throw Exception("Stub!")
     }
 
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getEpisodeList"))
-    override fun fetchEpisodeList(anime: SAnime): Observable<List<SEpisode>> {
-        throw Exception("Stub!")
-    }
-
     /**
      * Get the list of videos a episode has. Videos should be returned
      * in the expected order; the index is ignored.
@@ -258,15 +203,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
      * @return the videos for the episode.
      */
     override suspend fun getVideoList(episode: SEpisode): List<Video> {
-        throw Exception("Stub!")
-    }
-
-    @Deprecated("Use the non-RxJava API instead", replaceWith = ReplaceWith("getVideoList"))
-    override fun fetchVideoList(episode: SEpisode): Observable<List<Video>> {
-        throw Exception("Stub!")
-    }
-
-    open fun fetchVideoUrl(video: Video): Observable<String> {
         throw Exception("Stub!")
     }
 

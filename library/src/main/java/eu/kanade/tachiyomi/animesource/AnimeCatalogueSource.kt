@@ -2,7 +2,6 @@ package eu.kanade.tachiyomi.animesource
 
 import eu.kanade.tachiyomi.animesource.model.AnimeFilterList
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
-import rx.Observable
 
 interface AnimeCatalogueSource : AnimeSource {
 
@@ -52,22 +51,4 @@ interface AnimeCatalogueSource : AnimeSource {
      * Returns the list of filters for the source.
      */
     fun getFilterList(): AnimeFilterList
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getPopularAnime"),
-    )
-    fun fetchPopularAnime(page: Int): Observable<AnimesPage>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getSearchAnime"),
-    )
-    fun fetchSearchAnime(page: Int, query: String, filters: AnimeFilterList): Observable<AnimesPage>
-
-    @Deprecated(
-        "Use the non-RxJava API instead",
-        ReplaceWith("getLatestUpdates"),
-    )
-    fun fetchLatestUpdates(page: Int): Observable<AnimesPage>
 }
