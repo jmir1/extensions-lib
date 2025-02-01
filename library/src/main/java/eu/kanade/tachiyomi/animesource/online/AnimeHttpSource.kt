@@ -275,20 +275,6 @@ abstract class AnimeHttpSource : AnimeCatalogueSource {
     }
 
     /**
-     * Returns the request for getting the url to the source video. Override only if it's needed to
-     * override the url, send different headers or request method like POST.
-     *
-     * @param video the video whose its links have to be fetched.
-     */
-    protected open fun videoUrlRequest(video: Video): Request {
-        throw Exception("Stub!")
-    }
-
-    protected open fun videoUrlParse(response: Response): String {
-        throw Exception("Stub!")
-    }
-
-    /**
      * Assigns the url of the episode without the scheme and domain. It saves some redundancy from
      * database and the urls could still work after a domain change.
      *
