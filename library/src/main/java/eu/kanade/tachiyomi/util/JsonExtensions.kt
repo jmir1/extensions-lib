@@ -1,51 +1,63 @@
 package eu.kanade.tachiyomi.util
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.okio.decodeFromBufferedSource
-import kotlinx.serialization.serializer
 import okhttp3.Response
-import uy.kohesive.injekt.Injekt
-import uy.kohesive.injekt.api.get
 
 /**
- * Parse and serialize the transformed response body as the type <T>.
+ * App provided default [Json] instance. Configured as
+ * ```
+ * Json {
+ *     ignoreUnknownKeys = true
+ *     explicitNulls = false
+ * }
+ * ```
  *
- * @param transform transformer function that does required changes to the response body.
- * @since extensions-lib 14
+ * @since extensions-lib 16
  */
-inline fun <reified T> Response.parseAs(transform: (String) -> String): T {
-    val responseBody = transform(body.string())
-    return Injekt.get<Json>().decodeFromString(responseBody)
+val defaultJson: Json = throw Exception("Stub!")
+
+/**
+ * Decodes and deserializes the given response to the value of type [T]
+ *
+ * @since extensions-lib 16
+ *
+ * @param json the [Json] instance to use for decoding. Defaults to app provided [defaultJson]
+ */
+inline fun <reified T> Response.parseAs(json: Json = defaultJson): T {
+    return body.string().parseAs(json)
 }
 
 /**
- * Parse and serialize the response body as the type <T>.
+ * Decodes and deserializes the given response to the value of type [T], as well as
+ * transforming the response body before decoding
  *
- * This function uses okio utilities instead of converting the response body to
- * a String, so you may have a small performance gain over `Response.parseAs(transform)`,
- * mainly in large responses.
+ * @since extensions-lib 16
  *
- * @since extensions-lib 14
+ * @param json the [Json] instance to use for decoding. Defaults to app provided [defaultJson]
  */
-@ExperimentalSerializationApi
-inline fun <reified T> Response.parseAs(): T = body.source().use {
-    Injekt.get<Json>().decodeFromBufferedSource(serializer(), it)
+inline fun <reified T> Response.parseAs(json: Json = defaultJson, transform: (String) -> String): T {
+    return transform(body.string()).parseAs(json)
 }
 
 /**
- * Parses and serializes the transformed String as the type <T>.
+ * Decodes and deserializes the given JSON string to the value of type [T]
  *
- * @param transform transformer function that does required changes to the String.
- * @since extensions-lib 14
+ * @since extensions-lib 16
+ *
+ * @param json the [Json] instance to use for decoding. Defaults to app provided [defaultJson]
  */
-inline fun <reified T> String.parseAs(transform: (String) -> String): T =
-    Injekt.get<Json>().decodeFromString(transform(this))
+inline fun <reified T> String.parseAs(json: Json = defaultJson): T {
+    return json.decodeFromString(this)
+}
 
 /**
- * Parses and serializes the Json String as the type <T>.
+ * Decodes and deserializes the given JSON string to the value of type [T], as well as
+ * transforming the string body before decoding
  *
- * @since extensions-lib 14
+ * @since extensions-lib 16
+ *
+ * @param json the [Json] instance to use for decoding. Defaults to app provided [defaultJson]
  */
-inline fun <reified T> String.parseAs(): T = Injekt.get<Json>().decodeFromString(this)
+inline fun <reified T> String.parseAs(json: Json = defaultJson, transform: (String) -> String): T {
+    return json.decodeFromString(transform(this))
+}

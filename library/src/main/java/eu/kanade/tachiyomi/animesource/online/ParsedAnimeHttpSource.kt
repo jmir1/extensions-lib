@@ -1,10 +1,9 @@
 package eu.kanade.tachiyomi.animesource.online
 
 import eu.kanade.tachiyomi.animesource.model.AnimesPage
-import eu.kanade.tachiyomi.animesource.model.Video
+import eu.kanade.tachiyomi.animesource.model.Hoster
 import eu.kanade.tachiyomi.animesource.model.SEpisode
 import eu.kanade.tachiyomi.animesource.model.SAnime
-import okhttp3.Request
 import okhttp3.Response
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -136,34 +135,25 @@ abstract class ParsedAnimeHttpSource : AnimeHttpSource() {
     protected abstract fun episodeFromElement(element: Element): SEpisode
 
     /**
-     * Parses the response from the site and returns a list of videos.
+     * Parses the response from the site and returns a list of hosters.
+     *
+     * @since extensions-lib 16
      *
      * @param response the response from the site.
      */
-    override fun videoListParse(response: Response): List<Video> {
+    override fun hosterListParse(response: Response): List<Hoster> {
         throw Exception("Stub!")
     }
 
     /**
-     * Returns the Jsoup selector that returns a list of [Element] corresponding to each video.
+     * Returns the Jsoup selector that returns a list of [Element] corresponding to each hoster.
      */
-    protected abstract fun videoListSelector(): String
+    protected abstract fun hosterListSelector(): String
 
     /**
-     * Returns a video from the given element.
+     * Returns a hoster from the given element.
      *
-     * @param element an element obtained from [videoListSelector].
+     * @param element an element obtained from [hosterListSelector].
      */
-    protected abstract fun videoFromElement(element: Element): Video
-
-    override fun videoUrlParse(response: Response): String {
-        throw Exception("Stub!")
-    }
-
-    /**
-     * Returns the absolute url to the video url from the document.
-     *
-     * @param document the parsed document.
-     */
-    protected abstract fun videoUrlParse(document: Document): String
+    protected abstract fun hosterFromElement(element: Element): Hoster
 }

@@ -31,7 +31,7 @@ interface SAnime {
     var update_strategy: AnimeUpdateStrategy
 
     /**
-     * Tells the app if it should call [fetchAnimeDetails].
+     * Tells the app if it should call [getAnimeDetails].
      */
     var initialized: Boolean
 
