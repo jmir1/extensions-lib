@@ -37,6 +37,12 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-receivers")
+    }
+}
+
 dependencies {
     compileOnly(libs.okhttp)
     compileOnly(libs.jsoup)
